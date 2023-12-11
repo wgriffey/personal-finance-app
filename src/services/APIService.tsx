@@ -109,5 +109,5 @@ export default class APIService{
             }
         });
         return await res.json();
-    };
+    }
 }
