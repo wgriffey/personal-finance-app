@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import money from '../assets/images/money.png'
+import { ThemeProp } from '../interfaces/ThemeProps';
 
-function Navbar() {
+function Navbar(theme: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
-
     function openNavMenu(){
        setNavMenuOpen(navMenuOpen => !navMenuOpen); 
     }
 
     return (
-        <nav className='w-full h-[80px] z-0 bg-zinc-200 sticky drop-shadow-lg top-0'>
+        <nav className='w-full h-[80px] z-0 bg-textColor-accent sticky drop-shadow-lg top-0'>
             <div className='px-2 flex justify-between items-center w-full h-full'>
                 <div className='flex items-center'>
                     <img src={money} width={40}></img>
@@ -29,20 +29,30 @@ function Navbar() {
                         Link Account
                     </button>
                 </div>
+                <div className='hidden md: flex pr-4'>
+                    <button className='px-8 py-3'>
+                        {theme.theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </button>
+                </div>
                 <div className='md:hidden' onClick={openNavMenu}>
                     {!navMenuOpen ? <FontAwesomeIcon icon={faBars} className='w-5'/> : <FontAwesomeIcon icon={faXmark} className='w-5'/>}
                 </div>
             </div>
 
-            <ul className={navMenuOpen ? 'absolute bg-zinc-200 w-full px-8' : 'hidden'}>
+            <ul className={navMenuOpen ? 'absolute bg-backgroundColor-primary w-full px-8' : 'hidden'}>
                 <li className='border-b-2 border-zinc-300 w-full'>Dashboard</li>
                 <li className='border-b-2 border-zinc-300 w-full'>Transactions</li>
                 <li className='border-b-2 border-zinc-300 w-full'>Investments</li>
                 <li className='border-b-2 border-zinc-300 w-full'>Linked Accounts</li>
                 <li className='border-b-2 border-zinc-300 w-full'>Log Out</li>
-                <button className='px-8 py-3 mt-2 mb-2'>
+                <div className='flex flex-col'>
+                    <button className='px-8 py-3 mt-2 mb-2'>
                         Link Account
-                </button>
+                    </button>
+                    <button className='px-8 py-3' onClick={() => theme.handleThemeSwitch(theme.theme === 'dark' ? 'light' : 'dark')}>
+                        {theme.theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </button>
+                </div>
             </ul>
         </nav>
     )
