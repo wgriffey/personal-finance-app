@@ -1,4 +1,4 @@
 export interface ThemeProp{
     theme: string;
-    handleThemeSwitch: any;
+    handleThemeSwitch: React.Dispatch<React.SetStateAction<string>>;
 }
