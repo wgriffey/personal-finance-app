@@ -35,7 +35,7 @@ function App() {
                 <Routes>
                     <Route path = '/login' element = {<Login/>}/>
                     <Route path = '/' element = {<Layout theme={theme} handleThemeSwitch={setTheme}/>}>
-                        <Route path = 'home-page' element = {<HomeDashboard/>}/>
+                        <Route path = 'home' element = {<HomeDashboard/>}/>
                     </Route>
                 </Routes>
             </BrowserRouter>

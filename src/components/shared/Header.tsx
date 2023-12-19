@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProp } from '../../interfaces/ThemeProps';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { SIDEBAR_NAVIGATION_ITEMS } from '../../constants/SidebarItems';
+import { SidebarItem } from '../../interfaces/SidebarItem';
 
 function Header(theme: ThemeProp, page: string) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
@@ -22,7 +24,7 @@ function Header(theme: ThemeProp, page: string) {
     }
 
     return (
-        <nav className='h-[80px] z-0 bg-backgroundColor-primary sticky drop-shadow-lg top-0 border-none'>
+        <nav className='h-[90px] z-0 bg-backgroundColor-primary relative drop-shadow-lg border-none'>
             <div className='px-2 flex justify-between items-center w-full h-full'>
                 <div className='hidden md:flex'>
                     {location.pathname.replace(/\/|-/g, ' ').toUpperCase()}
@@ -53,14 +55,17 @@ function Header(theme: ThemeProp, page: string) {
                 </div>
             </div>
 
-            <ul className={navMenuOpen ? 'absolute bg-backgroundColor-primary w-full px-8' : 'hidden'}>
-                <li className='border-b-2 border-zinc-300 w-full'>Dashboard</li>
-                <li className='border-b-2 border-zinc-300 w-full'>Transactions</li>
-                <li className='border-b-2 border-zinc-300 w-full'>Investments</li>
-                <li className='border-b-2 border-zinc-300 w-full'>Linked Accounts</li>
-                <li className='border-b-2 border-zinc-300 w-full'>Log Out</li>
+            <ul className={navMenuOpen ? 'md:hidden absolute bg-backgroundColor-primary w-full px-8' : 'hidden'}>
+                {SIDEBAR_NAVIGATION_ITEMS.map((item: SidebarItem) => (
+                    <li>
+                        <Link key={item.key} to={item.path} className={`flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline text-base ${location.pathname === item.path ? 'text-white bg-neutral-700' : ''}`}>
+                            <span>{item.icon}</span>
+                            {item.label}
+                        </Link>
+                    </li>
+                ))}
                 <div className='flex flex-col'>
-                    <button className='px-8 py-3 mt-2 mb-2'>
+                    <button className='px-6 py-3 mt-2 mb-2'>
                         Link Account
                     </button>
                 </div>

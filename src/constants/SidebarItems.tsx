@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SidebarNavigationItem } from "../interfaces/SidebarNavigationItem";
-import { faFile, faHouse, faLink, faMoneyBillTrendUp } from '@fortawesome/free-solid-svg-icons';
+import { SidebarItem } from "../interfaces/SidebarItem";
+import { faCircleQuestion, faFile, faGear, faHouse, faLink, faMoneyBillTrendUp } from '@fortawesome/free-solid-svg-icons';
 
-export const SIDEBAR_NAVIGATION_ITEMS: SidebarNavigationItem[] = [
+export const SIDEBAR_NAVIGATION_ITEMS: SidebarItem[] = [
     {
         key: 'homeDashboard',
         label: 'Home Dashboard',
@@ -29,4 +29,19 @@ export const SIDEBAR_NAVIGATION_ITEMS: SidebarNavigationItem[] = [
     },
     
 
+]
+
+export const SIDEBAR_BOTTOM_ITEMS: SidebarItem[] = [
+    {
+        key: 'settings',
+        label: 'Settings',
+        path: 'settings',
+        icon: <FontAwesomeIcon icon={faGear} />
+    },
+    {
+        key: 'support',
+        label: 'Help & Support',
+        path: '/support',
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />
+    },
 ]
