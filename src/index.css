@@ -4,17 +4,18 @@
 
 @layer base {
     li {
-        @apply p-4
+        @apply p-4;
     }
 
-    button[type="button"], button[type="submit"]{
-        @apply text-textColor-secondary border bg-textColor-primary border-textColor-primary rounded-full
-        hover:bg-transparent hover:text-textColor-primary
+    button[type='button'],
+    button[type='submit'] {
+        @apply rounded-full border border-textColor-primary bg-textColor-primary text-textColor-secondary
+        hover:bg-transparent hover:text-textColor-primary;
     }
 
-    button[type="reset"]{
+    button[type='reset'] {
         @apply border-none bg-transparent text-textColor-primary
-        hover:text-textColor-secondary
+        hover:text-textColor-secondary;
     }
 
     label svg {
@@ -23,20 +24,21 @@
         z-index: 100;
     }
 
-    th, td {
-        @apply py-3 px-2.5 text-sm text-left border-y border-gray-200;
+    th,
+    td {
+        @apply border-y border-gray-200 px-2.5 py-3 text-left text-sm;
     }
 
-    thead{
-        @apply bg-neutral-100
+    thead {
+        @apply bg-neutral-100;
     }
 
     th {
-        @apply font-semibold
+        @apply font-semibold;
     }
 
     Link {
-        @apply text-sky-500 bg-backgroundColor-primary hover:bg-textColor-accent
+        @apply bg-backgroundColor-primary text-sky-500 hover:bg-textColor-accent;
     }
 
     :root {
@@ -64,13 +66,12 @@
     select:-webkit-autofill,
     select:-webkit-autofill:hover,
     select:-webkit-autofill:focus {
-    border-bottom-width: 2px;
-    border-color: rgb(var(--color-text-secondary));
-    -webkit-text-fill-color: rgb(var(--color-text-primary));
-    -webkit-box-shadow: 0 0 0px 1000px rbg(var(--color-bg-primary)) inset;
-    box-shadow: 0 0 0px 1000px rgb(var(--color-bg-primary)) inset;
-    transition: background-color 5000s ease-in-out 0s;
-    color: rgb(var(--color-text-primary));
+        border-bottom-width: 2px;
+        border-color: rgb(var(--color-text-secondary));
+        -webkit-text-fill-color: rgb(var(--color-text-primary));
+        -webkit-box-shadow: 0 0 0px 1000px rbg(var(--color-bg-primary)) inset;
+        box-shadow: 0 0 0px 1000px rgb(var(--color-bg-primary)) inset;
+        transition: background-color 5000s ease-in-out 0s;
+        color: rgb(var(--color-text-primary));
+    }
 }
-}
-

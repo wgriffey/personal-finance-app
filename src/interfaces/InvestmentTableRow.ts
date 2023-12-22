@@ -1,7 +1,7 @@
-export interface InvestmentTableRow{
+export interface InvestmentTableRow {
     security_id?: string;
     ticker?: string;
-    name: string|undefined;
+    name: string | undefined;
     price: number;
     quantity: number;
     cost_basis: number;

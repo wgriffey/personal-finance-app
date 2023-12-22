@@ -1,3 +1,3 @@
-export interface AuthToken{
+export interface AuthToken {
     token: string;
 }

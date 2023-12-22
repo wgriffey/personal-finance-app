@@ -1,8 +1,8 @@
-export interface TransactionTableRow{
+export interface TransactionTableRow {
     tran_id: string;
-    account: string|undefined;
+    account: string | undefined;
     date: string;
-    amount: number|undefined;
+    amount: number | undefined;
     company_name: string;
     payment_channel: string;
     category: string;

@@ -1,4 +1,4 @@
-export interface Investment{
+export interface Investment {
     account_id: string;
     security_id: string;
     security_name: string;

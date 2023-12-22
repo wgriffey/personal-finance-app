@@ -10,40 +10,56 @@ function Sidebar() {
     const location = useLocation();
 
     return (
-        <div className='hidden md:flex relative flex-col min-w-[15%] min-h-screen bg-backgroundColor-primary shadow-textColor-primary drop-shadow-lg'>
+        <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary shadow-textColor-primary drop-shadow-lg md:flex'>
             <div className='flex items-center justify-center gap-1 px-3 py-[26px] text-textColor-primary'>
                 <img src={money} className='h-6 w-6'></img>
                 <h1 className='text-sm font-bold md:text-lg'>Personal Finance App</h1>
             </div>
-            <hr className='h-px bg-textColor-primary border-0'/>
-            <div className='flex-1 flex-col space-y-5 mt-2 overflow-hidden'>
+            <hr className='h-px border-0 bg-textColor-primary' />
+            <div className='mt-2 flex-1 flex-col space-y-5 overflow-hidden'>
                 {SIDEBAR_NAVIGATION_ITEMS.map((item: SidebarItem) => (
-                    <Link key={item.key} to={item.path} className={`flex items-center text-textColor-secondary gap-2 font-light px-3 py-2 hover:bg-textColor-primary hover:no-underline text-base ${location.pathname === item.path ? 'text-textColor-secondary bg-textColor-primary bg-opacity-50' : ''}`}>
+                    <Link
+                        key={item.key}
+                        to={item.path}
+                        className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
+                            location.pathname === item.path
+                                ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'
+                                : ''
+                        }`}
+                    >
                         <span>{item.icon}</span>
                         {item.label}
                     </Link>
                 ))}
                 <div className='flex flex-col'>
-                    <button type='button' className='px-6 py-3 mt-2 mb-2'>
+                    <button type='button' className='mb-2 mt-2 px-6 py-3'>
                         Link Account
                     </button>
                 </div>
             </div>
-            <hr className='h-px bg-textColor-primary border-0'/>
+            <hr className='h-px border-0 bg-textColor-primary' />
             <div className='mt-2'>
                 {SIDEBAR_BOTTOM_ITEMS.map((item: SidebarItem) => (
-                    <Link key={item.key} to={item.path} className={`flex items-center text-textColor-secondary gap-2 font-light px-3 py-2 hover:bg-textColor-primary hover:no-underline text-base ${location.pathname === item.path ? 'text-textColor-secondary bg-textColor-primary bg-opacity-50' : ''}`}>
+                    <Link
+                        key={item.key}
+                        to={item.path}
+                        className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
+                            location.pathname === item.path
+                                ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'
+                                : ''
+                        }`}
+                    >
                         <span>{item.icon}</span>
                         {item.label}
                     </Link>
                 ))}
-                <div className='flex text-red-600 items-center gap-2 font-light px-3 py-2 cursor-pointer hover:bg-red-600 hover:text-textColor-secondary hover:no-underline text-base'>
+                <div className='flex cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'>
                     <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     Log Out
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Sidebar
+export default Sidebar;

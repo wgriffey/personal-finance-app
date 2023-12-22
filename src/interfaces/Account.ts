@@ -1,4 +1,4 @@
-export interface Account{
+export interface Account {
     id?: string;
     item?: string;
     account_id: string;
