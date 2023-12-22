@@ -8,13 +8,13 @@ export default {
         extend: {
             colors: {
                 backgroundColor: {
-                    primary: "var(--color-bg-primary)",
-                    secondary: "var(--color-bg-secondary)",
+                    primary: "rgb(var(--color-bg-primary) / <alpha-value>)",
+                    secondary: "rbg(var(--color-bg-secondary) / <alpha-value>)",
                 },
                 textColor: {
-                    accent: "var(--color-text-accent)",
-                    primary: "var(--color-text-primary)",
-                    secondary: "var(--color-text-secondary)",
+                    accent: "rgb(var(--color-text-accent) / <alpha-value>)",
+                    primary: "rgb(var(--color-text-primary) / <alpha-value>)",
+                    secondary: "rgb(var(--color-text-secondary) / <alpha-value>)",
                 },
             }
         },

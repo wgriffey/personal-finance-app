@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SidebarItem } from "../interfaces/SidebarItem";
+import { SidebarItem } from "../interfaces/SidebarNavigationItem";
 import { faCircleQuestion, faFile, faGear, faHouse, faLink, faMoneyBillTrendUp } from '@fortawesome/free-solid-svg-icons';
 
 export const SIDEBAR_NAVIGATION_ITEMS: SidebarItem[] = [

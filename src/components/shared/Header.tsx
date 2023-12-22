@@ -4,7 +4,7 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProp } from '../../interfaces/ThemeProps';
 import { Link, useLocation } from 'react-router-dom';
 import { SIDEBAR_NAVIGATION_ITEMS } from '../../constants/SidebarItems';
-import { SidebarItem } from '../../interfaces/SidebarItem';
+import { SidebarItem } from '../../interfaces/SidebarNavigationItem';
 
 function Header(theme: ThemeProp, page: string) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
@@ -24,13 +24,13 @@ function Header(theme: ThemeProp, page: string) {
     }
 
     return (
-        <nav className='h-[90px] z-0 bg-backgroundColor-primary relative drop-shadow-lg border-none'>
+        <nav className='h-[90px] z-0 bg-textColor-primary relative drop-shadow-lg border-none'>
             <div className='px-2 flex justify-between items-center w-full h-full'>
-                <div className='hidden md:flex'>
+                <div className='hidden md:flex font-bold text-textColor-secondary'>
                     {location.pathname.replace(/\/|-/g, ' ').toUpperCase()}
                 </div>
                 <div className='md:hidden' onClick={openNavMenu}>
-                    {!navMenuOpen ? <FontAwesomeIcon icon={faBars} className='w-5'/> : <FontAwesomeIcon icon={faXmark} className='w-5'/>}
+                    {!navMenuOpen ? <FontAwesomeIcon icon={faBars} className='w-5 text-backgroundColor-primary'/> : <FontAwesomeIcon icon={faXmark} className='w-5 text-backgroundColor-primary'/>}
                 </div>
                 <div className='md:flex md:mb-2'>
                     <input type='checkbox' id='darkMode-toggle' className='w-0 h-0 hidden peer/toggle' checked={theme.theme === 'dark' ? true : false} onChange={handleThemeToggle} />
@@ -58,14 +58,14 @@ function Header(theme: ThemeProp, page: string) {
             <ul className={navMenuOpen ? 'md:hidden absolute bg-backgroundColor-primary w-full px-8' : 'hidden'}>
                 {SIDEBAR_NAVIGATION_ITEMS.map((item: SidebarItem) => (
                     <li>
-                        <Link key={item.key} to={item.path} className={`flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline text-base ${location.pathname === item.path ? 'text-white bg-neutral-700' : ''}`}>
+                        <Link key={item.key} to={item.path} className={`flex items-center text-textColor-secondary gap-2 font-light px-3 py-2 hover:bg-textColor-primary hover:no-underline text-base ${location.pathname === item.path ? 'text-textColor-secondary bg-textColor-primary bg-opacity-50' : ''}`}>
                             <span>{item.icon}</span>
                             {item.label}
                         </Link>
                     </li>
                 ))}
                 <div className='flex flex-col'>
-                    <button className='px-6 py-3 mt-2 mb-2'>
+                    <button type='button' className='px-6 py-3 mt-2 mb-2'>
                         Link Account
                     </button>
                 </div>
