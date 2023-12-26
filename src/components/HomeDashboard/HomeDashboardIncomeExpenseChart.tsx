@@ -4,7 +4,6 @@ import {
     BarChart,
     CartesianGrid,
     Legend,
-    PieChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
@@ -31,7 +30,7 @@ function HomeDashboardIncomeExpenseChart() {
     return (
         <div className='ml-2 flex h-full w-full flex-1 flex-col rounded-sm border border-textColor-primary bg-backgroundColor-primary'>
             <strong className='p-1 font-medium text-textColor-secondary'>
-                Transaction Categories
+                Income/Expense Chart
             </strong>
             <div className='mt-3 h-full w-full text-xs'>
                 <ResponsiveContainer width='100%' height='100%'>

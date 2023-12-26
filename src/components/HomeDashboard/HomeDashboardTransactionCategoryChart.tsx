@@ -1,8 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
-import Chart from '../shared/Chart';
 import { TransactionCategoryChartData } from '../../interfaces/TransactionCategoryChartData';
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
-import { render } from 'react-dom';
 
 function HomeDashboardTransactionCategoryChart() {
     const RADIAN = Math.PI / 180;
@@ -43,7 +41,7 @@ function HomeDashboardTransactionCategoryChart() {
     return (
         <div className='ml-2 mr-2 flex h-full w-full flex-1 flex-col rounded-sm border border-textColor-primary bg-backgroundColor-primary'>
             <strong className='p-1 font-medium text-textColor-secondary'>
-                Transaction Categories
+                Transaction Categories Chart
             </strong>
             <div className='h-full w-full'>
                 <ResponsiveContainer width='100%' height='100%'>
