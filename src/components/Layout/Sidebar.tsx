@@ -10,7 +10,7 @@ function Sidebar() {
     const location = useLocation();
 
     return (
-        <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary shadow-textColor-primary drop-shadow-lg md:flex'>
+        <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary drop-shadow-lg md:flex'>
             <div className='flex items-center justify-center gap-1 px-3 py-[26px] text-textColor-primary'>
                 <img src={money} className='h-6 w-6'></img>
                 <h1 className='text-sm font-bold md:text-lg'>Personal Finance App</h1>

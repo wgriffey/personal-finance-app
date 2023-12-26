@@ -1,9 +1,9 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import HomeDashboard from './components/HomeDashboard';
-import Login from './components/Login';
+import HomeDashboard from './components/HomeDashboard/HomeDashboard';
+import Login from './components/Login/Login';
 import { CookiesProvider } from 'react-cookie';
-import Layout from './components/shared/Layout';
+import Layout from './components/Layout/Layout';
 import { useState, useEffect } from 'react';
 
 function App() {

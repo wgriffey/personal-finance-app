@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { SIDEBAR_NAVIGATION_ITEMS } from '../../constants/SidebarItems';
 import { SidebarItem } from '../../interfaces/SidebarNavigationItem';
 
-function Header(theme: ThemeProp, page: string) {
+function Header(themeProps: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
     const location = useLocation();
 
@@ -15,15 +15,15 @@ function Header(theme: ThemeProp, page: string) {
     }
 
     function handleThemeToggle() {
-        if (theme.theme === 'dark') {
-            theme.handleThemeSwitch('light');
+        if (themeProps.theme === 'dark') {
+            themeProps.handleThemeSwitch('light');
         } else {
-            theme.handleThemeSwitch('dark');
+            themeProps.handleThemeSwitch('dark');
         }
     }
 
     return (
-        <nav className='relative z-0 h-[90px] border-none bg-textColor-primary drop-shadow-lg'>
+        <nav className='relative z-0 h-[88px] border-none bg-textColor-primary drop-shadow-lg'>
             <div className='flex h-full w-full items-center justify-between px-2'>
                 <div className='hidden font-bold text-textColor-secondary md:flex'>
                     {location.pathname.replace(/\/|-/g, ' ').toUpperCase()}
@@ -46,7 +46,7 @@ function Header(theme: ThemeProp, page: string) {
                         type='checkbox'
                         id='darkMode-toggle'
                         className='peer/toggle hidden h-0 w-0'
-                        checked={theme.theme === 'dark' ? true : false}
+                        checked={themeProps.theme === 'dark' ? true : false}
                         onChange={handleThemeToggle}
                     />
                     <label
@@ -79,56 +79,56 @@ function Header(theme: ThemeProp, page: string) {
                         >
                             <path
                                 d='M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M12 2V4'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M12 20V22'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M4 12L2 12'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M22 12L20 12'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M19.7778 4.22266L17.5558 6.25424'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M4.22217 4.22266L6.44418 6.25424'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M6.44434 17.5557L4.22211 19.7779'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                             <path
                                 d='M19.7778 19.7773L17.5558 17.5551'
-                                stroke-width='1.5'
-                                stroke-linecap='round'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
                                 className='stroke-backgroundColor-primary'
                             />
                         </svg>
@@ -139,12 +139,12 @@ function Header(theme: ThemeProp, page: string) {
             <ul
                 className={
                     navMenuOpen
-                        ? 'absolute w-full bg-backgroundColor-primary px-8 md:hidden'
+                        ? 'absolute z-[100] w-full bg-backgroundColor-primary px-8 md:hidden'
                         : 'hidden'
                 }
             >
                 {SIDEBAR_NAVIGATION_ITEMS.map((item: SidebarItem) => (
-                    <li>
+                    <li key={item.key}>
                         <Link
                             key={item.key}
                             to={item.path}

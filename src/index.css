@@ -24,7 +24,7 @@
         z-index: 100;
     }
 
-    th,
+    /* th,
     td {
         @apply border-y border-gray-200 px-2.5 py-3 text-left text-sm;
     }
@@ -35,23 +35,23 @@
 
     th {
         @apply font-semibold;
-    }
+    } */
 
     Link {
-        @apply bg-backgroundColor-primary text-sky-500 hover:bg-textColor-accent;
+        @apply flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline;
     }
 
     :root {
         --color-bg-primary: 255 255 255;
         --color-bg-secondary: 237 242 247;
         --color-text-primary: 226 177 60;
-        --color-text-secondary: 74 85 104;
+        --color-text-secondary: 32 32 32;
         --color-text-accent: 43 108 176;
     }
 
     [data-theme='dark'] {
         --color-bg-primary: 22 25 30;
-        --color-bg-secondary: 40 49 65;
+        --color-bg-secondary: 25 29 36;
         --color-text-primary: 226 177 60;
         --color-text-secondary: 226 232 240;
         --color-text-accent: 129 230 217;

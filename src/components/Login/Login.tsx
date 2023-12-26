@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import APIService from '../services/APIService';
+import APIService from '../../services/APIService';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,15 +22,16 @@ function Login() {
     }, [userToken]);
 
     function onLogIn() {
-        APIService.LogInUser({ username, password })
-            .then((res) => {
-                if (!res.token) {
-                    setIsLoginError(true);
-                } else {
-                    setUserToken('myToken', res.token);
-                }
-            })
-            .catch((error) => console.log(error));
+        // APIService.LogInUser({ username, password })
+        //     .then((res) => {
+        //         if (!res.token) {
+        //             setIsLoginError(true);
+        //         } else {
+        //             setUserToken('myToken', res.token);
+        //         }
+        //     })
+        //     .catch((error) => console.log(error));
+        navigate('/home');
     }
 
     function onSignUp() {
@@ -104,12 +105,16 @@ function Login() {
                         )}
                     </div>
                     <div className='space-y-2'>
-                        <button type='submit' className='mt-8 px-20 py-2'>
+                        <button
+                            type='submit'
+                            className='mt-8 px-20 py-2'
+                            onClick={() => (isLogin ? onLogIn() : onSignUp())}
+                        >
                             {isLogin ? 'Log In' : 'Sign Up'}
                         </button>
                         <div>
                             <span className='text-textColor-secondary'>
-                                {isLogin ? 'New to Personal Finance?' : 'Existing User?'}{' '}
+                                {isLogin ? 'New to Personal Finance? ' : 'Existing User? '}
                                 <button
                                     type='reset'
                                     className='border-none bg-transparent text-textColor-primary'

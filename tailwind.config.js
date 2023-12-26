@@ -6,7 +6,7 @@ export default {
             colors: {
                 backgroundColor: {
                     primary: 'rgb(var(--color-bg-primary) / <alpha-value>)',
-                    secondary: 'rbg(var(--color-bg-secondary) / <alpha-value>)',
+                    secondary: 'rgb(var(--color-bg-secondary) / 1)',
                 },
                 textColor: {
                     accent: 'rgb(var(--color-text-accent) / <alpha-value>)',
