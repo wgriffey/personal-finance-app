@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 
 function Layout(theme: ThemeProp) {
     return (
-        <div className='flex h-[100dvh] min-w-full flex-row overflow-hidden bg-backgroundColor-secondary'>
+        <div className='flex h-[100dvh] w-[100dwh] flex-row overflow-hidden bg-backgroundColor-secondary'>
             <Sidebar />
             <div className='flex min-w-full flex-col md:min-w-[85%]'>
                 <Header theme={theme.theme} handleThemeSwitch={theme.handleThemeSwitch} />

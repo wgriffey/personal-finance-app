@@ -45,6 +45,19 @@
         @apply flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline;
     }
 
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    #home-dashboard-stats-grid::-webkit-scrollbar,
+    #home-dashboard-recent-transactions::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    #home-dashboard-stats-grid,
+    #home-dashboard-recent-transactions{
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
     :root {
         --color-bg-primary: 255 255 255;
         --color-bg-secondary: 237 242 247;
