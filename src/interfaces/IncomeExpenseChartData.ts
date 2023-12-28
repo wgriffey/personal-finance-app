@@ -1,4 +1,4 @@
-export interface IncomeExpenseChartData{
+export interface IncomeExpenseChartData {
     date: string;
     Income: number;
     Expense: number;

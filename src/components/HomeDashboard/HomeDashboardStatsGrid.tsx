@@ -9,7 +9,7 @@ import {
 
 function HomeDashboardStatsGrid() {
     return (
-        <div className='mt-1 flex w-full gap-4 overflow-auto px-2'>
+        <div className='mt-2 flex w-full gap-4 overflow-auto px-2'>
             <BoxWrapper>
                 <div className='mt-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-green-500 md:h-10 md:w-10'>
                     <FontAwesomeIcon

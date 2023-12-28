@@ -4,7 +4,7 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recha
 
 function HomeDashboardTransactionCategoryChart() {
     const RADIAN = Math.PI / 180;
-    const COLORS = ['#00C49F', '#FFBB28', 'FF8O42'];
+    const COLORS = ['#00C49F', '#FFBB28', '#ef4444'];
 
     const transactionCategoryChartData: TransactionCategoryChartData[] = [
         { name: 'Restaurant', total: 11 },
@@ -27,12 +27,7 @@ function HomeDashboardTransactionCategoryChart() {
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
-            <text
-                x={x}
-                y={y}
-                fill='white'
-                textAnchor={x > cx ? 'start' : 'end'}
-            >
+            <text x={x} y={y} fill='white' textAnchor={x > cx ? 'start' : 'end'}>
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
         );

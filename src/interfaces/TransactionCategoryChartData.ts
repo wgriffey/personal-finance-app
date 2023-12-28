@@ -1,4 +1,4 @@
 export interface TransactionCategoryChartData {
-    name: string,
-    total: number
+    name: string;
+    total: number;
 }
