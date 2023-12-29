@@ -63,8 +63,9 @@ export default class APIService {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
-        });
-        return res.json();
+        })
+        .then(res => res.json());
+        return await res;
     }
 
     static async GetTransactionDataFromDB(token: any) {

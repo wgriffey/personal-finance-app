@@ -4,21 +4,36 @@ import {
     useReactTable,
     flexRender,
     getPaginationRowModel,
-    getSortedRowModel,
+    getFilteredRowModel,
+    ColumnFiltersState,
 } from '@tanstack/react-table';
 import { DataTableProps } from '../../interfaces/DataTableProps';
 
 function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValue>) {
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
     const table = useReactTable({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
-        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        onColumnFiltersChange: setColumnFilters,
+        state: {
+            columnFilters,
+        },
     });
 
     return (
         <>
+            <input
+                className='block w-[20%] appearance-none rounded-lg border border-textColor-secondary bg-transparent px-2.5 py-2.5 mb-1 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
+                value={(table.getColumn('primary_category')?.getFilterValue() as string) || ''}
+                placeholder='Filter by category...'
+                onChange={(e) => {
+                    table.getColumn('primary_category')?.setFilterValue(e.target.value);
+                }}
+            />
             <table className='min-w-full'>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
