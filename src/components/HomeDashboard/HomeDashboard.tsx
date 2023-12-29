@@ -9,10 +9,10 @@ function HomeDashboard() {
         <div className='flex h-full w-full flex-col gap-2 bg-transparent'>
             <HomeDashboardStatsGrid />
             <div className='flex h-[40%] w-full bg-transparent'>
-                <div className='w-[75%]'>
+                <div className='w-[75.5%]'>
                     <HomeDashboardIncomeExpenseChart />
                 </div>
-                <div className='ml-4 mr-4 w-[25%]'>
+                <div className='ml-4 mr-4 w-[24.5%]'>
                     <HomeDashboardTransactionCategoryChart />
                 </div>
             </div>
