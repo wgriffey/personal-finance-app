@@ -13,7 +13,7 @@ function Sidebar() {
         <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary drop-shadow-lg md:flex'>
             <div className='flex items-center justify-center gap-1 px-3 py-[26px] text-textColor-primary'>
                 <img src={money} className='h-6 w-6'></img>
-                <h1 className='text-sm font-bold md:text-lg'>Personal Finance App</h1>
+                <h1 className='text-sm font-bold md:text-lg'>Gryffen Finance</h1>
             </div>
             <hr className='h-px border-0 bg-textColor-primary' />
             <div className='mt-2 flex-1 flex-col space-y-5 overflow-hidden'>
