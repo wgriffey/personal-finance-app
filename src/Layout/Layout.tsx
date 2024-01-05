@@ -1,6 +1,6 @@
 import Header from './Header';
 import { Outlet } from 'react-router-dom';
-import { ThemeProp } from '../../interfaces/ThemeProps';
+import { ThemeProp } from '../interfaces/ThemeProps';
 import Sidebar from './Sidebar';
 
 function Layout(theme: ThemeProp) {

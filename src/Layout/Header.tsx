@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ThemeProp } from '../../interfaces/ThemeProps';
+import { ThemeProp } from '../interfaces/ThemeProps';
 import { Link, useLocation } from 'react-router-dom';
-import { SIDEBAR_NAVIGATION_ITEMS } from '../../constants/SidebarItems';
-import { SidebarItem } from '../../interfaces/SidebarNavigationItem';
+import { SIDEBAR_NAVIGATION_ITEMS } from '../constants/SidebarItems';
+import { SidebarItem } from '../interfaces/SidebarNavigationItem';
 
 function Header(themeProps: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);

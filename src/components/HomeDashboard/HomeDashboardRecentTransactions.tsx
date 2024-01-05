@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Transaction } from '../../interfaces/Transaction';
 import { ColumnDef } from '@tanstack/react-table';
-import DataTable from '../shared/DataTable';
+import DataTable from '../DataTable/DataTable';
 
 function HomeDashboardRecentTransactions() {
     const columns: ColumnDef<Transaction>[] = [
