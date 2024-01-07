@@ -23,7 +23,7 @@ function Header(themeProps: ThemeProp) {
     }
 
     return (
-        <nav className='relative z-0 h-[88px] border-none bg-textColor-primary drop-shadow-lg'>
+        <nav className='relative z-[1000] h-[88px] border-none bg-textColor-primary drop-shadow-lg'>
             <div className='flex h-full w-full items-center justify-between px-2'>
                 <div className='hidden font-bold text-textColor-secondary md:flex'>
                     {location.pathname.replace(/\/|-/g, ' ').toUpperCase()}
@@ -139,7 +139,7 @@ function Header(themeProps: ThemeProp) {
             <ul
                 className={
                     navMenuOpen
-                        ? 'absolute z-[100] w-full bg-backgroundColor-primary px-8 md:hidden'
+                        ? 'absolute z-[1000] w-full bg-backgroundColor-primary px-8 md:hidden'
                         : 'hidden'
                 }
             >
@@ -148,6 +148,7 @@ function Header(themeProps: ThemeProp) {
                         <Link
                             key={item.key}
                             to={item.path}
+                            onClick={openNavMenu}
                             className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
                                 location.pathname === item.path
                                     ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'

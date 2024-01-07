@@ -1,6 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
 import { TransactionCategoryChartData } from '../../interfaces/TransactionCategoryChartData';
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { Cell, LabelList, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { faSquareFull } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function HomeDashboardTransactionCategoryChart() {
     const RADIAN = Math.PI / 180;
@@ -8,7 +10,7 @@ function HomeDashboardTransactionCategoryChart() {
 
     const transactionCategoryChartData: TransactionCategoryChartData[] = [
         { name: 'Restaurant', total: 11 },
-        { name: 'Groceries', total: 2 },
+        { name: 'Groceries', total: 9 },
         { name: 'Entertainment', total: 2 },
         { name: 'Rent', total: 6 },
         { name: 'Electronics', total: 7 },
@@ -22,12 +24,12 @@ function HomeDashboardTransactionCategoryChart() {
         outerRadius,
         percent,
     }: any): ReactElement<any, any> {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN);
-        const y = cy + radius * Math.sin(-midAngle * RADIAN);
+        const radius = innerRadius + (outerRadius - innerRadius) * 1.18;
+        const x = cx + radius * Math.cos(-midAngle * RADIAN); 
+        const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.07;
 
         return (
-            <text x={x} y={y} fill='white' textAnchor={x > cx ? 'start' : 'end'}>
+            <text x={x} y={y} className='fill-textColor-secondary' textAnchor={x > cx ? 'start' : 'end'}>
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
@@ -38,32 +40,31 @@ function HomeDashboardTransactionCategoryChart() {
             <strong className='p-1 font-medium text-textColor-secondary'>
                 Transaction Categories Chart
             </strong>
-            <div className='h-full w-full'>
-                <ResponsiveContainer width='100%' height='100%'>
-                    <PieChart
-                        width={100}
-                        height={100}
-                        margin={{ top: 40, right: 10, left: -10, bottom: 0 }}
+            <ResponsiveContainer width='99%' height='100%'>
+                <PieChart>
+                    <Pie
+                        dataKey='total'
+                        data={transactionCategoryChartData}
+                        cx='52%'
+                        cy='50%'
+                        outerRadius='80%'
+                        fill='#8884d8'
+                        labelLine={true}
+                        label={renderCustomizedLabels}
+                        style={{ zIndex: 0 }}
                     >
-                        <Pie
-                            dataKey='total'
-                            data={transactionCategoryChartData}
-                            cx='50%'
-                            cy='50%'
-                            outerRadius={80}
-                            fill='#8884d8'
-                            labelLine={false}
-                            label={renderCustomizedLabels}
-                        >
-                            {transactionCategoryChartData.map((_, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                        <Legend />
-                    </PieChart>
-                </ResponsiveContainer>
-            </div>
+                        <LabelList
+                            dataKey='name'
+                            position='right'
+                            style={{ fontSize: '12px' }}
+                        />
+                        {transactionCategoryChartData.map((_, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        ))}
+                    </Pie>
+                    <Tooltip />
+                </PieChart>
+            </ResponsiveContainer>
         </div>
     );
 }

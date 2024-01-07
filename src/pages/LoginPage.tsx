@@ -3,8 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/Login/LoginForm';
 
-
-function Login() {
+function LoginPage() {
     const [userToken] = useCookies(['myToken']);
     const navigate = useNavigate();
 
@@ -26,4 +25,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginPage;

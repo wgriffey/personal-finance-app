@@ -4,7 +4,7 @@ import HomeDashboardTransactionCategoryChart from '../components/HomeDashboard/H
 import HomeDashboardRecentTransactions from '../components/HomeDashboard/HomeDashboardRecentTransactions';
 import HomeDashboardTopMovingInvestments from '../components/HomeDashboard/HomeDashboardTopMovingInvestments';
 
-function HomeDashboard() {
+function HomeDashboardPage() {
     return (
         <div className='flex h-full w-full flex-col gap-2 bg-transparent'>
             <HomeDashboardStatsGrid />
@@ -24,4 +24,4 @@ function HomeDashboard() {
     );
 }
 
-export default HomeDashboard;
+export default HomeDashboardPage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import money from '../../assets/images/money.png';
+import money from '../assets/images/money.png';
 import { SIDEBAR_NAVIGATION_ITEMS, SIDEBAR_BOTTOM_ITEMS } from '../constants/SidebarItems';
 import { SidebarItem } from '../interfaces/SidebarNavigationItem';
 import { Link, useLocation } from 'react-router-dom';

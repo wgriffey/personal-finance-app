@@ -27,7 +27,7 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
     return (
         <>
             <input
-                className='block w-[20%] appearance-none rounded-lg border border-textColor-secondary bg-transparent px-2.5 py-2.5 mb-1 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
+                className='mb-1 block w-[20%] appearance-none rounded-lg border border-textColor-secondary bg-transparent px-2.5 py-2.5 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                 value={(table.getColumn('primary_category')?.getFilterValue() as string) || ''}
                 placeholder='Filter by category...'
                 onChange={(e) => {
@@ -113,10 +113,13 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
                     onChange={(e) => {
                         table.setPageSize(Number(e.target.value));
                     }}
-                    className='border-textColor-secondary bg-transparent text-textColor-secondary'
+                    className='block rounded-lg border border-textColor-secondary bg-backgroundColor-primary p-2.5 text-sm text-textColor-secondary focus:border-textColor-primary focus:ring-textColor-primary'
                 >
                     {[10, 20, 30, 40, 50].map((pageSize) => (
-                        <option key={pageSize} value={pageSize}>
+                        <option
+                            key={pageSize}
+                            value={pageSize}
+                        >
                             Show {pageSize}
                         </option>
                     ))}

@@ -33,7 +33,7 @@ function HomeDashboardIncomeExpenseChart() {
                 Income/Expense Chart
             </strong>
             <div className='mt-3 h-full w-full text-xs'>
-                <ResponsiveContainer width='100%' height='100%'>
+                <ResponsiveContainer width='99%' height='100%'>
                     <BarChart
                         width={500}
                         height={500}
