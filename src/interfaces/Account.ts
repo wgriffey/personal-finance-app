@@ -1,6 +1,7 @@
 export interface Account {
     id?: string;
-    item?: string;
+    linkToken?: string,
+    item: string;
     account_id: string;
     available_balance: number;
     current_balance: number;

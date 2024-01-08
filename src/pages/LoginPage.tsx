@@ -9,7 +9,7 @@ function LoginPage() {
 
     useEffect(() => {
         if (userToken['myToken'] && userToken['myToken'] !== undefined) {
-            navigate('/transactions');
+            navigate('/home');
         }
     }, [navigate, userToken]);
 

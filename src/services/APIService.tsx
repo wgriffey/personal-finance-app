@@ -2,7 +2,7 @@ import { User } from '../interfaces/User';
 
 export default class APIService {
     static async LogInUser(body: User) {
-        const res = await fetch(`http://127.0.0.1:8000/auth/`, {
+        const res = await fetch(`http://127.0.0.1:8000/api/auth/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,8 +63,7 @@ export default class APIService {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
-        })
-        .then(res => res.json());
+        }).then((res) => res.json());
         return await res;
     }
 
@@ -101,10 +100,23 @@ export default class APIService {
         return await res.json();
     }
 
-    static async GenerateLinkToken(token: any) {
-        const res = await fetch('http://127.0.0.1:8000/api/create_link_token/', {
+    static async GenerateLinkToken(token: any, itemId?: number) {
+        let res = null;
+        if (itemId) {
+            res = await fetch('http://127.0.0.1:8000/api/create_link_token/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify({ item_id: itemId }),
+            });
+            return await res.json();
+        }
+        res = await fetch('http://127.0.0.1:8000/api/create_link_token/', {
             method: 'POST',
             headers: {
+                'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
         });

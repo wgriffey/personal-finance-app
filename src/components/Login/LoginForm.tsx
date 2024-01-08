@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import APIService from '../../services/APIService';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQuery } from 'react-query';
+import { useLogin } from '../../hooks/authentication/useLogin';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -14,14 +16,19 @@ function LoginForm() {
     const [isLoginError, setIsLoginError] = useState(false);
     const [userToken, setUserToken] = useCookies(['myToken']);
     const navigate = useNavigate();
+    const loginMutation = useLogin();
 
-    function onLogIn() {
-        navigate('/home');
+    function onLogIn(event: any) {
+        event.preventDefault();
+        loginMutation.mutateAsync({ username, password });
+        if(loginMutation.error){
+            console.log(loginMutation.error)
+        }
     }
 
-    function onSignUp() {
+    function onSignUp(event: any) {
         APIService.SignUpUser({ username, email, password })
-            .then(() => onLogIn())
+            .then(() => onLogIn(event))
             .catch((error) => console.log(error));
     }
     return (
@@ -32,6 +39,7 @@ function LoginForm() {
                     id='username'
                     className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-red-600 focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                     placeholder=''
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <label
                     htmlFor='username'
@@ -47,6 +55,7 @@ function LoginForm() {
                         id='email'
                         className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                         placeholder=''
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                     <label
                         htmlFor='email'
@@ -62,6 +71,7 @@ function LoginForm() {
                     id='password'
                     className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                     placeholder=''
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <label
                     htmlFor='password'
@@ -87,7 +97,7 @@ function LoginForm() {
                 <button
                     type='submit'
                     className='mt-8 px-20 py-2'
-                    onClick={() => (isLogin ? onLogIn() : onSignUp())}
+                    onClick={(event) => (isLogin ? onLogIn(event) : onSignUp(event))}
                 >
                     {isLogin ? 'Log In' : 'Sign Up'}
                 </button>

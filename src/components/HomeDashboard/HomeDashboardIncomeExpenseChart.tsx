@@ -10,8 +10,16 @@ import {
     YAxis,
 } from 'recharts';
 import { IncomeExpenseChartData } from '../../interfaces/IncomeExpenseChartData';
+import { useQuery } from 'react-query';
+import APIService from '../../services/APIService';
+import { useCookies } from 'react-cookie';
 
 function HomeDashboardIncomeExpenseChart() {
+    const [userToken] = useCookies<string>(['myToken']);
+    // const transactionsQuery = useQuery({
+    //     queryKey: ["transactions"],
+    //     queryFn: () => APIService.GetTransactionDataFromDB(userToken)
+    // })
     const incomeExpenseChartData: IncomeExpenseChartData[] = [
         { date: 'January 2023', Income: 8000, Expense: -3000 },
         { date: 'February 2023', Income: 10000, Expense: -5000 },

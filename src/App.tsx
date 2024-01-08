@@ -13,7 +13,6 @@ import SettingsPage from './pages/SettingsPage';
 
 function App() {
     const [theme, setTheme] = useState<string>('light');
-    const queryClient = new QueryClient();
 
     useEffect(() => {
         // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -35,25 +34,20 @@ function App() {
     }, [theme]);
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <CookiesProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/login' element={<LoginPage />} />
-                        <Route
-                            path='/'
-                            element={<Layout theme={theme} handleThemeSwitch={setTheme} />}
-                        >
-                            <Route path='home' element={<HomeDashboardPage />} />
-                            <Route path='transactions' element={<TransactionsPage />} />
-                            <Route path='investments' element={<InvestmentsPage />} />
-                            <Route path='linked-accounts' element={<LinkedAccountsPage />} />
-                            <Route path='settings' element={<SettingsPage />} />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
-            </CookiesProvider>
-        </QueryClientProvider>
+        <CookiesProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/' element={<Layout theme={theme} handleThemeSwitch={setTheme} />}>
+                        <Route path='home' element={<HomeDashboardPage />} />
+                        <Route path='transactions' element={<TransactionsPage />} />
+                        <Route path='investments' element={<InvestmentsPage />} />
+                        <Route path='linked-accounts' element={<LinkedAccountsPage />} />
+                        <Route path='settings' element={<SettingsPage />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </CookiesProvider>
     );
 }
 
