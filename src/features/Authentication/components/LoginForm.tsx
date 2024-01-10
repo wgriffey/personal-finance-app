@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
-import APIService from '../../services/APIService';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useQuery } from 'react-query';
-import { useLogin } from '../../hooks/authentication/useLogin';
+import { useLogin } from '../hooks/useLogin';
+import { useRegister } from '../hooks/useRegister';
 
 function LoginForm() {
     const [username, setUsername] = useState('');
@@ -14,22 +11,23 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [isLoginError, setIsLoginError] = useState(false);
-    const [userToken, setUserToken] = useCookies(['myToken']);
-    const navigate = useNavigate();
     const loginMutation = useLogin();
+    const registerMutation = useRegister();
 
-    function onLogIn(event: any) {
+    async function onLogIn(event: any) {
         event.preventDefault();
-        loginMutation.mutateAsync({ username, password });
-        if(loginMutation.error){
-            console.log(loginMutation.error)
+        await loginMutation.mutateAsync({ username, password });
+        if (loginMutation.isError) {
+            setIsLoginError(true);
         }
     }
 
-    function onSignUp(event: any) {
-        APIService.SignUpUser({ username, email, password })
-            .then(() => onLogIn(event))
-            .catch((error) => console.log(error));
+    async function onSignUp(event: any) {
+        event.preventDefault();
+        await registerMutation.mutateAsync({ username, email, password });
+        if (registerMutation.isError) {
+            setIsLoginError(true);
+        }
     }
     return (
         <form className='items-center justify-center space-y-2'>
@@ -92,6 +90,11 @@ function LoginForm() {
                         onClick={() => setShowPassword(!showPassword)}
                     />
                 )}
+            </div>
+            <div>
+                {isLoginError ? (
+                    <text className='text-md text-red-600'>Username or Password </text>
+                ) : null}
             </div>
             <div className='space-y-2'>
                 <button

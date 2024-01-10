@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
-import { TransactionCategoryChartData } from '../../interfaces/TransactionCategoryChartData';
+import { TransactionCategoryChartData } from '../../../interfaces/TransactionCategoryChartData';
 import { Cell, LabelList, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -25,11 +25,16 @@ function HomeDashboardTransactionCategoryChart() {
         percent,
     }: any): ReactElement<any, any> {
         const radius = innerRadius + (outerRadius - innerRadius) * 1.18;
-        const x = cx + radius * Math.cos(-midAngle * RADIAN); 
+        const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN) * 1.07;
 
         return (
-            <text x={x} y={y} className='fill-textColor-secondary' textAnchor={x > cx ? 'start' : 'end'}>
+            <text
+                x={x}
+                y={y}
+                className='fill-textColor-secondary'
+                textAnchor={x > cx ? 'start' : 'end'}
+            >
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
@@ -53,11 +58,7 @@ function HomeDashboardTransactionCategoryChart() {
                         label={renderCustomizedLabels}
                         style={{ zIndex: 0 }}
                     >
-                        <LabelList
-                            dataKey='name'
-                            position='right'
-                            style={{ fontSize: '12px' }}
-                        />
+                        <LabelList dataKey='name' position='right' style={{ fontSize: '12px' }} />
                         {transactionCategoryChartData.map((_, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}

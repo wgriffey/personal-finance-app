@@ -5,9 +5,19 @@ import { SidebarItem } from '../interfaces/SidebarNavigationItem';
 import { Link, useLocation } from 'react-router-dom';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useQueryClient } from '@tanstack/react-query';
+import { useCookies } from 'react-cookie';
 
 function Sidebar() {
+    const query = useQueryClient();
     const location = useLocation();
+    const [userToken, setUserToken, removeUserToken] = useCookies(['myToken']);
+
+
+    function onLogOut(){
+        query.removeQueries({queryKey: ['user']});
+        removeUserToken('myToken');
+    }
 
     return (
         <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary drop-shadow-lg md:flex'>
@@ -53,7 +63,8 @@ function Sidebar() {
                         {item.label}
                     </Link>
                 ))}
-                <div className='flex cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'>
+                <div className='flex cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
+                onClick={onLogOut}>
                     <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     Log Out
                 </div>

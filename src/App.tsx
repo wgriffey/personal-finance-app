@@ -5,7 +5,6 @@ import LoginPage from './pages/LoginPage';
 import { CookiesProvider } from 'react-cookie';
 import Layout from './layout/Layout';
 import { useState, useEffect } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import TransactionsPage from './pages/TransactionsPage';
 import InvestmentsPage from './pages/InvestmentsPage';
 import LinkedAccountsPage from './pages/LinkedAccountsPage';
