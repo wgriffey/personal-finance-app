@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLogin } from '../hooks/useLogin';
@@ -14,21 +14,22 @@ function LoginForm() {
     const loginMutation = useLogin();
     const registerMutation = useRegister();
 
-    async function onLogIn(event: any) {
+    function onLogIn(event: any) {
         event.preventDefault();
-        await loginMutation.mutateAsync({ username, password });
-        if (loginMutation.isError) {
-            setIsLoginError(true);
-        }
+        loginMutation.mutate({ username, password }, { onError: () => setIsLoginError(true) });
     }
 
-    async function onSignUp(event: any) {
+    function onSignUp(event: any) {
         event.preventDefault();
-        await registerMutation.mutateAsync({ username, email, password });
-        if (registerMutation.isError) {
-            setIsLoginError(true);
-        }
+        registerMutation.mutate(
+            { username, email, password },
+            {
+                onSuccess: () => onLogIn(event),
+                onError: () => setIsLoginError(true),
+            },
+        );
     }
+
     return (
         <form className='items-center justify-center space-y-2'>
             <div className='relative'>
@@ -37,7 +38,10 @@ function LoginForm() {
                     id='username'
                     className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-red-600 focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                     placeholder=''
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => {
+                        setUsername(e.target.value);
+                        setIsLoginError(false);
+                    }}
                 />
                 <label
                     htmlFor='username'
@@ -53,7 +57,10 @@ function LoginForm() {
                         id='email'
                         className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                         placeholder=''
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            setIsLoginError(false);
+                        }}
                     />
                     <label
                         htmlFor='email'
@@ -69,7 +76,10 @@ function LoginForm() {
                     id='password'
                     className='peer ml-8 block w-[90%] appearance-none rounded-t-lg border-0 border-b-2 border-textColor-secondary bg-transparent px-2.5 pb-2.5 pt-5 text-sm text-textColor-secondary autofill:bg-transparent focus:border-textColor-primary focus:text-textColor-primary focus:outline-none focus:ring-0'
                     placeholder=''
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        setIsLoginError(false);
+                    }}
                 />
                 <label
                     htmlFor='password'
@@ -93,7 +103,9 @@ function LoginForm() {
             </div>
             <div>
                 {isLoginError ? (
-                    <text className='text-md text-red-600'>Username or Password </text>
+                    <span className='text-md text-red-600'>
+                        {isLogin ? loginMutation.error?.message : registerMutation.error?.message}
+                    </span>
                 ) : null}
             </div>
             <div className='space-y-2'>
@@ -106,7 +118,7 @@ function LoginForm() {
                 </button>
                 <div>
                     <span className='text-textColor-secondary'>
-                        {isLogin ? 'New to Personal Finance? ' : 'Existing User? '}
+                        {isLogin ? 'New to Gryffen Finance? ' : 'Existing User? '}
                         <button
                             type='reset'
                             className='border-none bg-transparent text-textColor-primary'

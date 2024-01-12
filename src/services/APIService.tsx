@@ -2,124 +2,167 @@ import { User } from '../interfaces/User';
 
 export default class APIService {
     static async LogInUser(body: User) {
-        const res = await fetch(`http://127.0.0.1:8000/api/auth/`, {
+        return await fetch(`http://127.0.0.1:8000/api/auth/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async SignUpUser(body: User) {
-        const res = await fetch(`http://127.0.0.1:8000/api/users/`, {
+        return await fetch(`http://127.0.0.1:8000/api/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(body),
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetAccountDataFromPlaid(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/save_accounts_from_plaid`, {
+        return await fetch(`http://127.0.0.1:8000/api/save_accounts_from_plaid`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetAccountDataFromDB(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/get_accounts`, {
+        return await fetch(`http://127.0.0.1:8000/api/get_accounts`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetAccountDataByIdFromDB(token: any, account_id: number) {
-        const res = await fetch(`http://127.0.0.1:8000/api/get_account/${account_id}`, {
+        return await fetch(`http://127.0.0.1:8000/api/get_account/${account_id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetTransactionDataFromPlaid(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/save_transactions_from_plaid`, {
+        return await fetch(`http://127.0.0.1:8000/api/save_transactions_from_plaid`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
-        }).then((res) => res.json());
-        return await res;
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
+        });
     }
 
     static async GetTransactionDataFromDB(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/get_transactions`, {
+        return await fetch(`http://127.0.0.1:8000/api/get_transactions`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetInvestmentDataFromPlaid(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/save_investments_from_plaid`, {
+        return await fetch(`http://127.0.0.1:8000/api/save_investments_from_plaid`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GetInvestmentDataFromDB(token: any) {
-        const res = await fetch(`http://127.0.0.1:8000/api/get_investments`, {
+        return await fetch(`http://127.0.0.1:8000/api/get_investments`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 
     static async GenerateLinkToken(token: any, itemId?: number) {
-        let res = null;
         if (itemId) {
-            res = await fetch('http://127.0.0.1:8000/api/create_link_token/', {
+            return await fetch('http://127.0.0.1:8000/api/create_link_token/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Token ${token}`,
                 },
                 body: JSON.stringify({ item_id: itemId }),
+            }).then(async (res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                throw new Error(`${res.status}: ${await res.text()}`);
             });
-            return await res.json();
         }
-        res = await fetch('http://127.0.0.1:8000/api/create_link_token/', {
+        return await fetch('http://127.0.0.1:8000/api/create_link_token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${token}`,
             },
+        }).then(async (res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            throw new Error(`${res.status}: ${await res.text()}`);
         });
-        return await res.json();
     }
 }
