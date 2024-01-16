@@ -53,7 +53,7 @@
 
     /* Hide scrollbar for IE, Edge and Firefox */
     #home-dashboard-stats-grid,
-    #home-dashboard-recent-transactions{
+    #home-dashboard-recent-transactions {
         -ms-overflow-style: none; /* IE and Edge */
         scrollbar-width: none; /* Firefox */
     }

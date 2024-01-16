@@ -13,9 +13,8 @@ function Sidebar() {
     const location = useLocation();
     const [userToken, setUserToken, removeUserToken] = useCookies(['myToken']);
 
-
-    function onLogOut(){
-        query.removeQueries({queryKey: ['user']});
+    function onLogOut() {
+        query.removeQueries({ queryKey: ['user'] });
         removeUserToken('myToken');
     }
 
@@ -63,8 +62,10 @@ function Sidebar() {
                         {item.label}
                     </Link>
                 ))}
-                <div className='flex cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
-                onClick={onLogOut}>
+                <div
+                    className='flex cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
+                    onClick={onLogOut}
+                >
                     <FontAwesomeIcon icon={faArrowRightFromBracket} />
                     Log Out
                 </div>

@@ -9,16 +9,18 @@ import { useAccounts } from '../../LinkedAccounts/hooks/useAccounts.ts';
 
 function HomeDashboardRecentTransactions() {
     const accounts = useAccounts();
-    const startDate: string = moment().subtract(30, 'days').format('YYYY-MM-DD')
-    const endDate: string = moment().format('YYYY-MM-DD')
+    const startDate: string = moment().subtract(30, 'days').format('YYYY-MM-DD');
+    const endDate: string = moment().format('YYYY-MM-DD');
     const recentTransactionColumns: ColumnDef<Transaction>[] = [
         {
             header: 'Account',
             accessorKey: 'account',
             cell: ({ row }) => {
-                const account: Account = accounts.data.find((acc: Account) => acc.id === row.getValue('account'))
-                return account.name
-            }
+                const account: Account = accounts.data.find(
+                    (acc: Account) => acc.id === row.getValue('account'),
+                );
+                return account.name;
+            },
         },
         {
             header: 'Date',
@@ -56,9 +58,9 @@ function HomeDashboardRecentTransactions() {
     const memoData: Transaction[] = useMemo(() => recentTransactionsData, [recentTransactionsData]);
 
     useEffect(() => {
-        console.log(transactions)
-        console.log(memoData)
-    })
+        console.log(transactions);
+        console.log(memoData);
+    });
 
     return (
         <div
@@ -68,12 +70,15 @@ function HomeDashboardRecentTransactions() {
             <strong className='p-1 font-medium text-textColor-secondary'>
                 Recent Transactions
             </strong>
-            {transactions.isFetching || transactions.isLoading? <h2 className={"text-textColor-primary"}>Loading...</h2> : null}
-            {transactions.status === "error" ? <h2>Error Fetching Transactions</h2> : null}
-            {transactions.isSuccess ? <div className='m-3 w-[90%]'>
-                <DataTable columns={recentTransactionColumns} data={transactions.data} />
-            </div> : null}
-
+            {transactions.isFetching || transactions.isLoading ? (
+                <h2 className={'text-textColor-primary'}>Loading...</h2>
+            ) : null}
+            {transactions.status === 'error' ? <h2>Error Fetching Transactions</h2> : null}
+            {transactions.isSuccess ? (
+                <div className='m-3 w-[90%]'>
+                    <DataTable columns={recentTransactionColumns} data={transactions.data} />
+                </div>
+            ) : null}
         </div>
     );
 }

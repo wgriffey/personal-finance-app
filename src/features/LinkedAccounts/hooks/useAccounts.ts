@@ -8,6 +8,6 @@ export function useAccounts() {
     return useQuery({
         queryKey: ['accounts'],
         queryFn: () => APIService.GetAccountDataFromDB(userToken['myToken']),
-        staleTime: Infinity
-    })
+        staleTime: Infinity,
+    });
 }

@@ -10,14 +10,12 @@ export function useLogin() {
     return useMutation({
         mutationFn: (user: User) => APIService.LogInUser(user),
         onSuccess: (data) => {
-            console.log(`Success! Data: ${JSON.stringify(data)}`);
             if (data.token) {
                 queryClient.setQueryData(['user', { type: 'auth' }], data.token);
                 setUserToken('myToken', data.token);
             }
         },
         onError: (error) => {
-            console.log(error.message);
             if (
                 error.message.includes('password') &&
                 error.message.includes('username') &&

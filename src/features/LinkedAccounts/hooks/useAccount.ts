@@ -8,5 +8,5 @@ export function useAccount(accountId: number) {
     return useQuery({
         queryKey: ['accounts'],
         queryFn: () => APIService.GetAccountDataByIdFromDB(userToken['myToken'], accountId),
-    })
+    });
 }

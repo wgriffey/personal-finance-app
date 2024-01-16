@@ -92,13 +92,16 @@ export default class APIService {
     }
 
     static async GetTransactionDataFromDB(token: any, startDate?: string, endDate?: string) {
-        return await fetch(`http://127.0.0.1:8000/api/get_transactions?start_date=${startDate}&end_date=${endDate}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Token ${token}`,
+        return await fetch(
+            `http://127.0.0.1:8000/api/get_transactions?start_date=${startDate}&end_date=${endDate}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${token}`,
+                },
             },
-        }).then(async (res) => {
+        ).then(async (res) => {
             if (res.ok) {
                 return res.json();
             }

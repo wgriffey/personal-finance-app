@@ -116,10 +116,7 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
                     className='block rounded-lg border border-textColor-secondary bg-backgroundColor-primary p-2.5 text-sm text-textColor-secondary focus:border-textColor-primary focus:ring-textColor-primary'
                 >
                     {[10, 20, 30, 40, 50].map((pageSize) => (
-                        <option
-                            key={pageSize}
-                            value={pageSize}
-                        >
+                        <option key={pageSize} value={pageSize}>
                             Show {pageSize}
                         </option>
                     ))}
