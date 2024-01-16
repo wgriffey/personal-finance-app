@@ -1,14 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import APIService from '../../../services/APIService';
 import { User } from '../../../interfaces/User';
-import { useCookies } from 'react-cookie';
-import { useLogin } from './useLogin';
 
 export function useRegister() {
-    const [userToken, setUserToken] = useCookies(['myToken']);
-    const queryClient = useQueryClient();
-    const loginMutation = useLogin();
-
     return useMutation({
         mutationFn: (user: User) => APIService.SignUpUser(user),
         onSuccess: (data) => {

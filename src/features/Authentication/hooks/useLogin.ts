@@ -11,9 +11,8 @@ export function useLogin() {
         mutationFn: (user: User) => APIService.LogInUser(user),
         onSuccess: (data) => {
             console.log(`Success! Data: ${JSON.stringify(data)}`);
-            if (data.token && data.token !== undefined) {
+            if (data.token) {
                 queryClient.setQueryData(['user', { type: 'auth' }], data.token);
-                queryClient.invalidateQueries({ queryKey: ['user', { type: 'auth' }] });
                 setUserToken('myToken', data.token);
             }
         },
