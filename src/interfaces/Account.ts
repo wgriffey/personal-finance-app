@@ -1,5 +1,5 @@
 export interface Account {
-    id?: string;
+    id: string;
     linkToken?: string,
     item: string;
     account_id: string;
