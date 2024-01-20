@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import APIService from '../../../services/APIService';
 import { useCookies } from 'react-cookie';
+import AccountService from '../services/AccountService.ts';
 
 export function useAccounts() {
     const [userToken] = useCookies(['myToken']);
 
     return useQuery({
         queryKey: ['accounts'],
-        queryFn: () => APIService.GetAccountDataFromDB(userToken['myToken']),
-        staleTime: Infinity,
+        queryFn: () => AccountService.GetAccountDataFromDB(userToken['myToken']),
     });
 }

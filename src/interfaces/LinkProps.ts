@@ -3,6 +3,7 @@
 // in configuration to initialize Plaid Link
 
 export interface LinkProps {
-    linkToken: string | null | undefined;
-    userToken: any;
+    userToken: string;
+    linkToken: string;
+    item: string | null | undefined;
 }

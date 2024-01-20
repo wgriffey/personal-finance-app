@@ -9,6 +9,7 @@ import TransactionsPage from './pages/TransactionsPage';
 import InvestmentsPage from './pages/InvestmentsPage';
 import LinkedAccountsPage from './pages/LinkedAccountsPage';
 import SettingsPage from './pages/SettingsPage';
+import { PlaidLinkProvider } from './features/Plaid/context/PlaidLinkContext.tsx';
 
 function App() {
     const [theme, setTheme] = useState<string>('light');
@@ -34,18 +35,23 @@ function App() {
 
     return (
         <CookiesProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/' element={<Layout theme={theme} handleThemeSwitch={setTheme} />}>
-                        <Route path='home' element={<HomeDashboardPage />} />
-                        <Route path='transactions' element={<TransactionsPage />} />
-                        <Route path='investments' element={<InvestmentsPage />} />
-                        <Route path='linked-accounts' element={<LinkedAccountsPage />} />
-                        <Route path='settings' element={<SettingsPage />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+            <PlaidLinkProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/login' element={<LoginPage />} />
+                        <Route
+                            path='/'
+                            element={<Layout theme={theme} handleThemeSwitch={setTheme} />}
+                        >
+                            <Route path='home' element={<HomeDashboardPage />} />
+                            <Route path='transactions' element={<TransactionsPage />} />
+                            <Route path='investments' element={<InvestmentsPage />} />
+                            <Route path='linked-accounts' element={<LinkedAccountsPage />} />
+                            <Route path='settings' element={<SettingsPage />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </PlaidLinkProvider>
         </CookiesProvider>
     );
 }

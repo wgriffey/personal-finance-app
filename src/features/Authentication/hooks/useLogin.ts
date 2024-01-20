@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import APIService from '../../../services/APIService';
 import { User } from '../../../interfaces/User';
 import { useCookies } from 'react-cookie';
+import AuthService from '../services/AuthService.ts';
 
 export function useLogin() {
-    const [userToken, setUserToken] = useCookies(['myToken']);
+    const [_, setUserToken] = useCookies(['myToken']);
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (user: User) => APIService.LogInUser(user),
+        mutationFn: (user: User) => AuthService.LogInUser(user),
         onSuccess: (data) => {
             if (data.token) {
                 queryClient.setQueryData(['user', { type: 'auth' }], data.token);

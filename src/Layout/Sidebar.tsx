@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import money from '../assets/images/money.png';
 import { SIDEBAR_NAVIGATION_ITEMS, SIDEBAR_BOTTOM_ITEMS } from '../constants/SidebarItems';
 import { SidebarItem } from '../interfaces/SidebarNavigationItem';
@@ -7,12 +7,19 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCookies } from 'react-cookie';
+import LaunchPlaidLink from '../features/Plaid/components/LaunchPlaidLink.tsx';
+import useLink from '../features/Plaid/hooks/useLink.ts';
 
 function Sidebar() {
     const query = useQueryClient();
     const location = useLocation();
+    const { generateLinkToken } = useLink();
     const [userToken, setUserToken, removeUserToken] = useCookies(['myToken']);
 
+    function initiatePlaidLink() {
+        console.log('Clicked');
+        generateLinkToken(userToken['myToken'], null);
+    }
     function onLogOut() {
         query.removeQueries({ queryKey: ['user'] });
         removeUserToken('myToken');
@@ -41,7 +48,11 @@ function Sidebar() {
                     </Link>
                 ))}
                 <div className='flex flex-col'>
-                    <button type='button' className='mb-2 mt-2 px-6 py-3'>
+                    <button
+                        type='button'
+                        className='mb-2 mt-2 px-6 py-3'
+                        onClick={() => initiatePlaidLink()}
+                    >
                         Link Account
                     </button>
                 </div>

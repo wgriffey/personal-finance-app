@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from 'react';
 import { Transaction } from '../../../interfaces/Transaction';
 import { ColumnDef } from '@tanstack/react-table';
 import DataTable from '../../../components/DataTable/DataTable';
@@ -53,14 +52,6 @@ function HomeDashboardRecentTransactions() {
     ];
 
     const transactions = useTransactions(startDate, endDate);
-    const [recentTransactionsData] = useState<Transaction[]>([transactions.data]);
-
-    const memoData: Transaction[] = useMemo(() => recentTransactionsData, [recentTransactionsData]);
-
-    useEffect(() => {
-        console.log(transactions);
-        console.log(memoData);
-    });
 
     return (
         <div

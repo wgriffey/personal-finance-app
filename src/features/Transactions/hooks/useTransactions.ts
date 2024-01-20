@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import APIService from '../../../services/APIService';
 import { useCookies } from 'react-cookie';
+import TransactionService from '../service/TransactionService.ts';
 
 export function useTransactions(startDate?: string, endDate?: string) {
     const [userToken] = useCookies(['myToken']);
@@ -9,8 +9,11 @@ export function useTransactions(startDate?: string, endDate?: string) {
         useQuery({
             queryKey: ['transactions'],
             queryFn: () =>
-                APIService.GetTransactionDataFromDB(userToken['myToken'], startDate, endDate),
-            staleTime: 10000,
+                TransactionService.GetTransactionDataFromDB(
+                    userToken['myToken'],
+                    startDate,
+                    endDate,
+                ),
         }) ?? []
     );
 }

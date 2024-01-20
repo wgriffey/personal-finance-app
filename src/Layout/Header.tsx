@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProp } from '../interfaces/ThemeProps';
 import { Link, useLocation } from 'react-router-dom';
 import { SIDEBAR_NAVIGATION_ITEMS } from '../constants/SidebarItems';
 import { SidebarItem } from '../interfaces/SidebarNavigationItem';
+import { useCookies } from 'react-cookie';
+import { useQueryClient } from '@tanstack/react-query';
+import useLink from '../features/Plaid/hooks/useLink.ts';
 
 function Header(themeProps: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
     const location = useLocation();
+    const [userToken, setUserToken, removeUserToken] = useCookies(['myToken']);
+    const { generateLinkToken } = useLink();
+    const query = useQueryClient();
 
     function openNavMenu() {
         setNavMenuOpen((navMenuOpen) => !navMenuOpen);
@@ -20,6 +26,16 @@ function Header(themeProps: ThemeProp) {
         } else {
             themeProps.handleThemeSwitch('dark');
         }
+    }
+
+    function initiatePlaidLink() {
+        console.log('Clicked');
+        generateLinkToken(userToken['myToken'], null);
+    }
+
+    function onLogOut() {
+        query.removeQueries({ queryKey: ['user'] });
+        removeUserToken('myToken');
     }
 
     return (
@@ -46,7 +62,7 @@ function Header(themeProps: ThemeProp) {
                         type='checkbox'
                         id='darkMode-toggle'
                         className='peer/toggle hidden h-0 w-0'
-                        checked={themeProps.theme === 'dark' ? true : false}
+                        checked={themeProps.theme === 'dark'}
                         onChange={handleThemeToggle}
                     />
                     <label
@@ -160,8 +176,19 @@ function Header(themeProps: ThemeProp) {
                         </Link>
                     </li>
                 ))}
+                <div
+                    className=' ml-4 mt-3 flex w-[95%] cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
+                    onClick={onLogOut}
+                >
+                    <FontAwesomeIcon icon={faArrowRightFromBracket} />
+                    Log Out
+                </div>
                 <div className='flex flex-col'>
-                    <button type='button' className='mb-2 mt-2 px-6 py-3'>
+                    <button
+                        type='button'
+                        className='mb-2 mt-2 px-6 py-3'
+                        onClick={() => initiatePlaidLink()}
+                    >
                         Link Account
                     </button>
                 </div>
