@@ -2,12 +2,16 @@
 
 Personal Finance Application Built with React Typescript, Tanstack (Tanstack Query and Tanstack Table) and Tailwind CSS
 
+<br>
+
 ## How to Start Project
 ### 1. Run the Personal Finance Backend Project Locally
 ### 2. Run npm install
 ### 3. Run npm run dev
 ### 4. Register or Log In
-    - Your login credentials will only be utilized for getting into the app to receive the mocked data, none of your personal finance information will ever be stored
+- Your login credentials will only be utilized for getting into the app to receive the mocked data, none of your personal finance information will ever be stored
+
+<br>
 
 ## Steps For Plaid Link
 ### 1. Click "Link Account"
@@ -20,8 +24,12 @@ Personal Finance Application Built with React Typescript, Tanstack (Tanstack Que
 ### 8. Accept the terms and conditions and click "Connect accounts"
 ### 9. You should be able to view the mock transactions in the "Recent Transactions" section of the Home Dashboard
 
+<br>
+
 ## Dark Mode
 ![Dark Mode Screenshot](public/Gryffen_Finance_Dark_mode.png)
+
+<br>
 
 ### Light Mode
 ![Light Mode Screenshot](public/Gryffen_Finance_Light_mode.png)
