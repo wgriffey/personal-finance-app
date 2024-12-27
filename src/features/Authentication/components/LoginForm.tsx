@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLogin } from '../hooks/useLogin';
@@ -7,7 +7,7 @@ import { useRegister } from '../hooks/useRegister';
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState('');
     const [isLogin, setIsLogin] = useState(true);
     const [isLoginError, setIsLoginError] = useState(false);
@@ -90,20 +90,20 @@ function LoginForm() {
                 {showPassword ? (
                     <FontAwesomeIcon
                         icon={faEye}
-                        className='absolute right-8 top-7 text-textColor-secondary peer-focus:text-textColor-primary'
+                        className='absolute cursor-pointer right-8 top-7 text-textColor-secondary peer-focus:text-textColor-primary'
                         onClick={() => setShowPassword(!showPassword)}
                     />
                 ) : (
                     <FontAwesomeIcon
                         icon={faEyeSlash}
-                        className='absolute right-8 top-7 text-textColor-secondary peer-focus:text-textColor-primary'
+                        className='absolute cursor-pointer right-8 top-7 text-textColor-secondary peer-focus:text-textColor-primary'
                         onClick={() => setShowPassword(!showPassword)}
                     />
                 )}
             </div>
             <div>
                 {isLoginError ? (
-                    <span className='text-md text-red-600'>
+                    <span className='text-red-600 text-md'>
                         {isLogin ? loginMutation.error?.message : registerMutation.error?.message}
                     </span>
                 ) : null}
@@ -111,7 +111,7 @@ function LoginForm() {
             <div className='space-y-2'>
                 <button
                     type='submit'
-                    className='mt-8 px-20 py-2'
+                    className='px-20 py-2 mt-8'
                     onClick={(event) => (isLogin ? onLogIn(event) : onSignUp(event))}
                 >
                     {isLogin ? 'Log In' : 'Sign Up'}
@@ -121,7 +121,7 @@ function LoginForm() {
                         {isLogin ? 'New to Gryffen Finance? ' : 'Existing User? '}
                         <button
                             type='reset'
-                            className='border-none bg-transparent text-textColor-primary'
+                            className='bg-transparent border-none text-textColor-primary'
                             onClick={() => setIsLogin(!isLogin)}
                         >
                             {isLogin ? 'Join Here!' : 'Log In Here!'}

@@ -7,7 +7,7 @@ export function useInvestments() {
 
     return (
         useQuery({
-            queryKey: ['transactions'],
+            queryKey: ['investments'],
             queryFn: () => InvestmentService.GetInvestmentDataFromDB(userToken['myToken']),
             staleTime: 10000,
         }) ?? []
