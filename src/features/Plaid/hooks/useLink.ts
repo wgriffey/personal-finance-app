@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import PlaidLinkContext from '../context/PlaidLinkContext.tsx';
+import PlaidLinkContext from '@plaid/context/PlaidLinkContext.tsx';
 
 /**
  * @desc A convenience hook to provide access to the Link context state in components.

@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { User } from '../../../interfaces/User';
-import AuthService from '../services/AuthService.ts';
+import { User } from '@interfaces/User.ts';
+import AuthService from '@auth/services/AuthService.ts';
 
 export function useRegister() {
     return useMutation({
-        mutationFn: (user: User) => AuthService.SignUpUser(user),
+        mutationFn: (user: User) => AuthService.signUp(user),
         onError: (error) => {
             console.log(error.message);
             if (error.message.includes('username already exists.')) {

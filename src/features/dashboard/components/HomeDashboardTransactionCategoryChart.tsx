@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
-import { TransactionCategoryChartData } from '../../../interfaces/TransactionCategoryChartData';
+import { TransactionCategoryChartData } from '@interfaces/TransactionCategoryChartData';
 import { Cell, LabelList, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

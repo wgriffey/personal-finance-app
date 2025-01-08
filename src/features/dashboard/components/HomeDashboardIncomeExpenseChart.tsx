@@ -8,7 +8,7 @@ import {
     XAxis,
     YAxis,
 } from 'recharts';
-import { IncomeExpenseChartData } from '../../../interfaces/IncomeExpenseChartData';
+import { IncomeExpenseChartData } from '@interfaces/IncomeExpenseChartData';
 
 function HomeDashboardIncomeExpenseChart() {
     const incomeExpenseChartData: IncomeExpenseChartData[] = [

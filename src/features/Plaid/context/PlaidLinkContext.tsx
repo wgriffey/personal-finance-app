@@ -1,6 +1,6 @@
 import { createContext, Dispatch, useCallback, useMemo, useReducer } from 'react';
 import { PlaidLinkError } from 'react-plaid-link';
-import PlaidService from '../services/PlaidService.ts';
+import PlaidService from '@plaid/services/PlaidService.ts';
 
 interface LinkToken {
     [key: string]: string;
@@ -26,18 +26,17 @@ const initialState: LinkState = {
 type LinkAction =
     | {
           type: 'LINK_TOKEN_CREATED';
-          userToken: string;
           token: string;
       }
     | { type: 'LINK_TOKEN_UPDATE_MODE_CREATED'; itemId: number; token: string }
     | { type: 'LINK_TOKEN_ERROR'; error: PlaidLinkError }
-    | { type: 'DELETE_USER_LINK_TOKEN'; userToken: string }
+    | { type: 'DELETE_USER_LINK_TOKEN' }
     | { type: 'DELETE_ITEM_LINK_TOKEN'; itemId: number };
 
 interface LinkContextShape extends LinkState {
     dispatch: Dispatch<LinkAction>;
-    generateLinkToken: (userToken: string, itemId: number | null | undefined) => void;
-    deleteLinkToken: (userToken: string | null, itemId: number | null) => void;
+    generateLinkToken: (itemId?: number) => void;
+    deleteLinkToken: (itemId?: number) => void;
     linkTokens: LinkState;
 }
 
@@ -52,7 +51,7 @@ function reducer(state: LinkState, action: LinkAction) {
             return {
                 ...state,
                 byUser: {
-                    [action.userToken]: action.token,
+                    user: action.token,
                 },
                 error: {
                     error_type: '',
@@ -80,7 +79,7 @@ function reducer(state: LinkState, action: LinkAction) {
             return {
                 ...state,
                 byUser: {
-                    [action.userToken]: '',
+                    user: '',
                 },
             };
         case 'DELETE_ITEM_LINK_TOKEN':
@@ -111,22 +110,22 @@ export function PlaidLinkProvider(props: any) {
     /**
      * @desc Creates a new link token for a given User or Item.
      */
-    const generateLinkToken = useCallback(async (userToken: string, itemId: number) => {
+    const generateLinkToken = useCallback(async (itemId?: number) => {
         // if itemId is not null, update mode is triggered
-        const linkTokenResponse = await PlaidService.GenerateLinkToken(userToken, itemId);
+        const linkTokenResponse = await PlaidService.generateLinkToken(itemId);
         console.info(linkTokenResponse);
         if (linkTokenResponse.link_token) {
             const token = await linkTokenResponse.link_token;
             console.log('success', linkTokenResponse);
 
-            if (itemId !== null && itemId !== undefined) {
+            if (itemId) {
                 dispatch({
                     type: 'LINK_TOKEN_UPDATE_MODE_CREATED',
                     itemId: itemId,
                     token: token,
                 });
             } else {
-                dispatch({ type: 'LINK_TOKEN_CREATED', userToken: userToken, token: token });
+                dispatch({ type: 'LINK_TOKEN_CREATED', token: token });
             }
         } else {
             dispatch({ type: 'LINK_TOKEN_ERROR', error: linkTokenResponse.data });
@@ -134,16 +133,15 @@ export function PlaidLinkProvider(props: any) {
         }
     }, []);
 
-    const deleteLinkToken = useCallback(async (userToken: string, itemId: number) => {
-        if (userToken !== null) {
-            dispatch({
-                type: 'DELETE_USER_LINK_TOKEN',
-                userToken: userToken,
-            });
-        } else {
+    const deleteLinkToken = useCallback(async (itemId?: number) => {
+        if (itemId) {
             dispatch({
                 type: 'DELETE_ITEM_LINK_TOKEN',
                 itemId: itemId,
+            });
+        } else {
+            dispatch({
+                type: 'DELETE_USER_LINK_TOKEN',
             });
         }
     }, []);

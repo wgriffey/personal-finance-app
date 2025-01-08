@@ -1,10 +1,10 @@
 export interface InvestmentTableRow {
-    security_id?: string;
+    securityId?: string;
     ticker?: string;
     name: string | undefined;
     price: number;
     quantity: number;
-    cost_basis: number;
-    gain_loss: number;
-    gain_loss_percentage: number;
+    costBasis: number;
+    gainLoss: number;
+    gainLossPercentage: number;
 }

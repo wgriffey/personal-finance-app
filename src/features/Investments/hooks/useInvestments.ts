@@ -1,14 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCookies } from 'react-cookie';
-import InvestmentService from '../services/InvestmentService.ts';
+import InvestmentService from '@investments/services/InvestmentService.ts';
 
 export function useInvestments() {
-    const [userToken] = useCookies(['myToken']);
-
     return (
         useQuery({
             queryKey: ['investments'],
-            queryFn: () => InvestmentService.GetInvestmentDataFromDB(userToken['myToken']),
+            queryFn: () => InvestmentService.getInvestmentDataFromDB(),
             staleTime: 10000,
         }) ?? []
     );

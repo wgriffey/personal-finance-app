@@ -1,10 +1,10 @@
 export interface TransactionTableRow {
-    tran_id: string;
+    tranId: string;
     account: string | undefined;
     date: string;
     amount: number | undefined;
-    company_name: string;
-    payment_channel: string;
+    companyName: string;
+    paymentChannel: string;
     category: string;
-    sub_category: string;
+    subCategory: string;
 }

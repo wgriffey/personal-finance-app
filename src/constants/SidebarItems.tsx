@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SidebarItem } from '../interfaces/SidebarNavigationItem';
+import { SidebarItem } from '@interfaces/SidebarNavigationItem';
 import {
     faCircleQuestion,
     faFile,

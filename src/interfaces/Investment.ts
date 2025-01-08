@@ -1,10 +1,11 @@
 export interface Investment {
-    account_id: string;
-    security_id: string;
-    security_name: string;
-    security_ticker: string;
+    id: string,
+    accountId: string;
+    securityId: string;
+    securityName: string;
+    securityTicker: string;
     price: number;
-    price_as_of: Date;
-    cost_basis: number;
+    priceAsOf: Date;
+    costBasis: number;
     quantity: number;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxWrapperProps } from '../../../interfaces/BoxWrapperProps';
+import { BoxWrapperProps } from '@interfaces/BoxWrapperProps';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faHandHoldingDollar,
@@ -27,7 +27,7 @@ function HomeDashboardStatsGrid() {
                         $1000.00
                     </strong>
                 </div>
-                <div className='flex '>
+                <div className='flex'>
                     <span className='pl-2 text-sm text-green-500 md:mt-5'>
                         +$200.00 from last month
                     </span>

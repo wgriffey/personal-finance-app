@@ -1,8 +1,8 @@
-import HomeDashboardStatsGrid from '../features/HomeDashboard/components/HomeDashboardStatsGrid';
-import HomeDashboardIncomeExpenseChart from '../features/HomeDashboard/components/HomeDashboardIncomeExpenseChart';
-import HomeDashboardTransactionCategoryChart from '../features/HomeDashboard/components/HomeDashboardTransactionCategoryChart';
-import HomeDashboardRecentTransactions from '../features/HomeDashboard/components/HomeDashboardRecentTransactions';
-import HomeDashboardTopMovingInvestments from '../features/HomeDashboard/components/HomeDashboardTopMovingInvestments';
+import HomeDashboardStatsGrid from '@dashboard/components/HomeDashboardStatsGrid';
+import HomeDashboardIncomeExpenseChart from '@dashboard/components/HomeDashboardIncomeExpenseChart';
+import HomeDashboardTransactionCategoryChart from '@dashboard/components/HomeDashboardTransactionCategoryChart';
+import HomeDashboardRecentTransactions from '@dashboard/components/HomeDashboardRecentTransactions';
+import HomeDashboardTopMovingInvestments from '@dashboard/components/HomeDashboardTopMovingInvestments';
 
 function HomeDashboardPage() {
     return (

@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ThemeProp } from '../interfaces/ThemeProps';
-import { Link, useLocation } from 'react-router-dom';
-import { SIDEBAR_NAVIGATION_ITEMS } from '../constants/SidebarItems';
-import { SidebarItem } from '../interfaces/SidebarNavigationItem';
-import { useCookies } from 'react-cookie';
+import { ThemeProp } from '@interfaces/ThemeProps';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { SIDEBAR_NAVIGATION_ITEMS } from '@constants/SidebarItems';
+import { SidebarItem } from '@interfaces/SidebarNavigationItem';
 import { useQueryClient } from '@tanstack/react-query';
-import useLink from '../features/Plaid/hooks/useLink.ts';
+import useLink from '@plaid/hooks/useLink.ts';
 
 function Header(themeProps: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
     const location = useLocation();
-    const [userToken, setUserToken, removeUserToken] = useCookies(['myToken']);
+    const navigate = useNavigate();
     const { generateLinkToken } = useLink();
     const query = useQueryClient();
 
@@ -30,12 +29,12 @@ function Header(themeProps: ThemeProp) {
 
     function initiatePlaidLink() {
         console.log('Clicked');
-        generateLinkToken(userToken['myToken'], null);
+        generateLinkToken();
     }
 
     function onLogOut() {
         query.removeQueries({ queryKey: ['user'] });
-        removeUserToken('myToken');
+        navigate('/login');
     }
 
     return (
@@ -70,7 +69,7 @@ function Header(themeProps: ThemeProp) {
                         className='relative mt-2 block h-8 w-16 cursor-pointer rounded-3xl bg-backgroundColor-primary shadow-inner shadow-slate-600 transition-[0.3s] after:absolute after:left-1 after:top-1 after:h-6 after:w-6 after:rounded-2xl after:bg-gradient-to-b after:from-yellow-200 after:to-orange-600 after:shadow-md after:transition-[0.3s] active:after:w-8 peer-checked/toggle:bg-backgroundColor-primary peer-checked/toggle:after:left-[62px] peer-checked/toggle:after:translate-x-[-100%] peer-checked/toggle:after:bg-gradient-to-b peer-checked/toggle:after:from-gray-400 peer-checked/toggle:after:to-neutral-950'
                     >
                         <svg
-                            className=' left-10 top-[6px] fill-white transition-[0.3s]'
+                            className='left-10 top-[6px] fill-white transition-[0.3s]'
                             viewBox='0 0 24 24'
                             xmlns='http://www.w3.org/2000/svg'
                         >
@@ -177,7 +176,7 @@ function Header(themeProps: ThemeProp) {
                     </li>
                 ))}
                 <div
-                    className=' ml-4 mt-3 flex w-[95%] cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
+                    className='ml-4 mt-3 flex w-[95%] cursor-pointer items-center gap-2 px-3 py-2 text-base font-light text-red-600 hover:bg-red-600 hover:text-textColor-secondary hover:no-underline'
                     onClick={onLogOut}
                 >
                     <FontAwesomeIcon icon={faArrowRightFromBracket} />

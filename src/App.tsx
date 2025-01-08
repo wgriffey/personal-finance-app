@@ -1,15 +1,14 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import HomeDashboardPage from './pages/HomeDashboardPage';
-import LoginPage from './pages/LoginPage';
-import { CookiesProvider } from 'react-cookie';
-import Layout from './layout/Layout';
+import HomeDashboardPage from '@pages/HomeDashboardPage';
+import LoginPage from '@pages/LoginPage';
+import Layout from '@layout/Layout';
 import { useState, useEffect } from 'react';
-import TransactionsPage from './pages/TransactionsPage';
-import InvestmentsPage from './pages/InvestmentsPage';
-import LinkedAccountsPage from './pages/LinkedAccountsPage';
-import SettingsPage from './pages/SettingsPage';
-import { PlaidLinkProvider } from './features/Plaid/context/PlaidLinkContext.tsx';
+import TransactionsPage from '@pages/TransactionsPage';
+import InvestmentsPage from '@pages/InvestmentsPage';
+import LinkedAccountsPage from '@pages/LinkedAccountsPage';
+import SettingsPage from '@pages/SettingsPage';
+import { PlaidLinkProvider } from '@plaid/context/PlaidLinkContext';
 
 function App() {
     const [theme, setTheme] = useState<string>('light');
@@ -34,25 +33,20 @@ function App() {
     }, [theme]);
 
     return (
-        <CookiesProvider>
-            <PlaidLinkProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path='/login' element={<LoginPage />} />
-                        <Route
-                            path='/'
-                            element={<Layout theme={theme} handleThemeSwitch={setTheme} />}
-                        >
-                            <Route path='home' element={<HomeDashboardPage />} />
-                            <Route path='transactions' element={<TransactionsPage />} />
-                            <Route path='investments' element={<InvestmentsPage />} />
-                            <Route path='linked-accounts' element={<LinkedAccountsPage />} />
-                            <Route path='settings' element={<SettingsPage />} />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
-            </PlaidLinkProvider>
-        </CookiesProvider>
+        <PlaidLinkProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/' element={<Layout theme={theme} handleThemeSwitch={setTheme} />}>
+                        <Route path='home' element={<HomeDashboardPage />} />
+                        <Route path='transactions' element={<TransactionsPage />} />
+                        <Route path='investments' element={<InvestmentsPage />} />
+                        <Route path='linked-accounts' element={<LinkedAccountsPage />} />
+                        <Route path='settings' element={<SettingsPage />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </PlaidLinkProvider>
     );
 }
 

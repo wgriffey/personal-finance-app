@@ -1,10 +1,10 @@
-import { Transaction } from '../../../interfaces/Transaction';
+import { Transaction } from '@interfaces/Transaction.ts';
 import { ColumnDef } from '@tanstack/react-table';
-import DataTable from '../../../components/DataTable/DataTable';
-import { useTransactions } from '../../Transactions/hooks/useTransactions.ts';
+import DataTable from '@components/DataTable/DataTable.tsx';
+import { useTransactions } from '@transactions/hooks/useTransactions.ts';
 import moment from 'moment';
-import { Account } from '../../../interfaces/Account.ts';
-import { useAccounts } from '../../LinkedAccounts/hooks/useAccounts.ts';
+import { Account } from '@interfaces/Account.ts';
+import { useAccounts } from '@accounts/hooks/useAccounts.ts';
 
 function HomeDashboardRecentTransactions() {
     const accounts = useAccounts();
@@ -39,15 +39,15 @@ function HomeDashboardRecentTransactions() {
         },
         {
             header: 'Payment Channel',
-            accessorKey: 'payment_channel',
+            accessorKey: 'paymentChannel',
         },
         {
             header: 'Category',
-            accessorKey: 'primary_category',
+            accessorKey: 'primaryCategory',
         },
         {
             header: 'Sub-Category',
-            accessorKey: 'detailed_category',
+            accessorKey: 'detailedCategory',
         },
     ];
 

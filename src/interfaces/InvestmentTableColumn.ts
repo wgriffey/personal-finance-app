@@ -4,9 +4,9 @@ export interface InvestmentTableColumn {
         | 'name'
         | 'price'
         | 'quantity'
-        | 'cost_basis'
-        | 'gain_loss'
-        | 'gain_loss_percentage';
+        | 'costBasis'
+        | 'gainLoss'
+        | 'gainLossPercentage';
     label: string;
     minWidth?: number;
     align?: 'center' | 'right' | 'left' | 'inherit' | 'justify' | undefined;

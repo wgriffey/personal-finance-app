@@ -3,10 +3,10 @@ export interface TransactionTableColumn {
         | 'account'
         | 'date'
         | 'amount'
-        | 'company_name'
-        | 'payment_channel'
+        | 'companyName'
+        | 'paymentChannel'
         | 'category'
-        | 'sub_category';
+        | 'subCategory';
     label: string;
     minWidth?: number;
     align?: 'center' | 'right' | 'left' | 'inherit' | 'justify' | undefined;
