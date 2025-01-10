@@ -3,6 +3,7 @@ import InputField from '@auth/components/InputField';
 import { useLogin } from '@auth/hooks/useLogin';
 import { useRegister } from '@auth/hooks/useRegister';
 import { User } from '@interfaces/User';
+import Spinner from '@components/Spinner';
 
 const LoginForm = () => {
     const formRef = useRef<User>({
@@ -39,7 +40,7 @@ const LoginForm = () => {
 
     function onRegister(formData: User) {
         registerMutation.mutate(formData, {
-            onSuccess: () => onLogIn(formData),
+            onSuccess: () => setIsLogin(true),
             onError: (error) => {
                 setIsLoginError(true);
                 setErrorMessage(error.message);
@@ -155,9 +156,16 @@ const LoginForm = () => {
             <div className='space-y-2'>
                 <button
                     type='submit'
-                    className='mt-8 rounded-lg bg-blue-500 px-20 py-2 text-white transition-colors hover:bg-blue-600'
+                    disabled={registerMutation.isPending || loginMutation.isPending}
+                    className='mt-8 rounded-lg px-20 py-2 text-white transition-colors disabled:opacity-75'
                 >
-                    {isLogin ? 'Log In' : 'Sign Up'}
+                    {loginMutation.isPending || registerMutation.isPending ? (
+                        <Spinner height='h-6' width='w-6' color='border-textColor-secondary' />
+                    ) : isLogin ? (
+                        'Log In'
+                    ) : (
+                        'Sign Up'
+                    )}
                 </button>
 
                 <div>
@@ -165,7 +173,8 @@ const LoginForm = () => {
                         {isLogin ? 'New to Gryffen Finance? ' : 'Existing User? '}
                         <button
                             type='reset'
-                            className='border-none bg-transparent text-blue-500 hover:text-blue-600'
+                            disabled={registerMutation.isPending || loginMutation.isPending}
+                            className='border-none bg-transparent text-blue-500 hover:text-blue-600 disabled:opacity-50'
                             onClick={handleToggleMode}
                         >
                             {isLogin ? 'Join Here!' : 'Log In Here!'}

@@ -31,6 +31,7 @@
             "@plaid/*": ["./features/plaid/*"],
             "@settings/*": ["./features/settings/*"],
             "@transactions/*": ["./features/transactions/*"],
+            "@user/*": ["./features/user/*"],
             "@hooks/*": ["./hooks/*"],
             "@interfaces/*": ["./interfaces/*"],
             "@layout/*": ["./layout/*"],

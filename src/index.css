@@ -9,13 +9,11 @@
 
     button[type='button'],
     button[type='submit'] {
-        @apply rounded-full border border-textColor-primary bg-textColor-primary text-textColor-secondary
-        hover:bg-transparent hover:text-textColor-primary;
+        @apply h-10 w-40 rounded-full border border-textColor-primary bg-textColor-primary px-5 py-2 text-textColor-secondary hover:bg-transparent hover:text-textColor-primary;
     }
 
     button[type='reset'] {
-        @apply border-none bg-transparent text-textColor-primary
-        hover:text-textColor-secondary;
+        @apply border-none bg-transparent text-textColor-primary hover:text-textColor-secondary;
     }
 
     label svg {

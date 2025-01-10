@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { ThemeProp } from '@interfaces/ThemeProps';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { SIDEBAR_NAVIGATION_ITEMS } from '@constants/SidebarItems';
 import { SidebarItem } from '@interfaces/SidebarNavigationItem';
-import { useQueryClient } from '@tanstack/react-query';
 import useLink from '@plaid/hooks/useLink.ts';
+import { useLogout } from '@auth/hooks/useLogout';
 
 function Header(themeProps: ThemeProp) {
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
     const location = useLocation();
     const navigate = useNavigate();
     const { generateLinkToken } = useLink();
-    const query = useQueryClient();
+    const logoutMutation = useLogout();
 
     function openNavMenu() {
         setNavMenuOpen((navMenuOpen) => !navMenuOpen);
@@ -33,7 +33,7 @@ function Header(themeProps: ThemeProp) {
     }
 
     function onLogOut() {
-        query.removeQueries({ queryKey: ['user'] });
+        logoutMutation.mutate();
         navigate('/login');
     }
 

@@ -1,24 +1,23 @@
 import money from '@assets/images/money.png';
 import { SIDEBAR_NAVIGATION_ITEMS, SIDEBAR_BOTTOM_ITEMS } from '@constants/SidebarItems';
 import { SidebarItem } from '@interfaces/SidebarNavigationItem';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useQueryClient } from '@tanstack/react-query';
 import useLink from '@plaid/hooks/useLink.ts';
+import { useLogout } from '@auth/hooks/useLogout';
 
 function Sidebar() {
-    const query = useQueryClient();
     const location = useLocation();
     const navigate = useNavigate();
     const { generateLinkToken } = useLink();
+    const logoutMutation = useLogout();
 
     function initiatePlaidLink() {
-        console.log('Clicked');
         generateLinkToken();
     }
     function onLogOut() {
-        query.removeQueries({ queryKey: ['user'] });
+        logoutMutation.mutate()
         navigate('/login');
     }
 

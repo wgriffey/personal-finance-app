@@ -23,15 +23,22 @@ export async function fetchWithMiddleware(
     // Send fetch request with transformed body (stringified)
     const response = await fetch(url, {
         ...restOptions,
+        credentials: 'include',
         headers: filteredHeaders,
         body: transformedBody ? JSON.stringify(transformedBody) : undefined,
     });
 
     if (response.ok) {
-        // Parse and convert response JSON to camelCase
-        const responseData = await response.json();
-        return toCamelCase(responseData);
+        // Check if there's a body to parse
+        if (response.status === 204) {
+            return null; // No content, return null
+        }
+
+        // Parse the JSON response and convert to camelCase
+        const responseData = await response.json().catch(() => null); // Handle empty responses
+        return responseData ? toCamelCase(responseData) : null;
     }
 
+    // Handle errors by throwing with the response status and message
     throw new Error(`${response.status}: ${await response.text()}`);
 }

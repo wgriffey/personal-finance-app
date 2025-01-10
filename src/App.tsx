@@ -1,6 +1,6 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router';
 import './App.css';
-import HomeDashboardPage from '@pages/HomeDashboardPage';
+import DashboardPage from '@pages/DashboardPage';
 import LoginPage from '@pages/LoginPage';
 import Layout from '@layout/Layout';
 import { useState, useEffect } from 'react';
@@ -9,6 +9,8 @@ import InvestmentsPage from '@pages/InvestmentsPage';
 import LinkedAccountsPage from '@pages/LinkedAccountsPage';
 import SettingsPage from '@pages/SettingsPage';
 import { PlaidLinkProvider } from '@plaid/context/PlaidLinkContext';
+import { AuthProvider } from '@auth/context/AuthContext';
+import ActivationPage from '@pages/ActivationPage';
 
 function App() {
     const [theme, setTheme] = useState<string>('light');
@@ -33,20 +35,26 @@ function App() {
     }, [theme]);
 
     return (
-        <PlaidLinkProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/' element={<Layout theme={theme} handleThemeSwitch={setTheme} />}>
-                        <Route path='home' element={<HomeDashboardPage />} />
-                        <Route path='transactions' element={<TransactionsPage />} />
-                        <Route path='investments' element={<InvestmentsPage />} />
-                        <Route path='linked-accounts' element={<LinkedAccountsPage />} />
-                        <Route path='settings' element={<SettingsPage />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        </PlaidLinkProvider>
+        <AuthProvider>
+            <PlaidLinkProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/login' element={<LoginPage />} />
+                        <Route path='/activation/:uid/:token' element={<ActivationPage />} />
+                        <Route
+                            path='/'
+                            element={<Layout theme={theme} handleThemeSwitch={setTheme} />}
+                        >
+                            <Route path='dashboard' element={<DashboardPage />} />
+                            <Route path='transactions' element={<TransactionsPage />} />
+                            <Route path='investments' element={<InvestmentsPage />} />
+                            <Route path='linked-accounts' element={<LinkedAccountsPage />} />
+                            <Route path='settings' element={<SettingsPage />} />
+                        </Route>
+                    </Routes>
+                </BrowserRouter>
+            </PlaidLinkProvider>
+        </AuthProvider>
     );
 }
 

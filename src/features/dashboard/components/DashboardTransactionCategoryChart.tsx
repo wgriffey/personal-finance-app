@@ -4,7 +4,7 @@ import { Cell, LabelList, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } 
 import { faSquareFull } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function HomeDashboardTransactionCategoryChart() {
+function DashboardTransactionCategoryChart() {
     const RADIAN = Math.PI / 180;
     const COLORS = ['#00C49F', '#FFBB28', '#ef4444'];
 
@@ -70,4 +70,4 @@ function HomeDashboardTransactionCategoryChart() {
     );
 }
 
-export default HomeDashboardTransactionCategoryChart;
+export default DashboardTransactionCategoryChart;

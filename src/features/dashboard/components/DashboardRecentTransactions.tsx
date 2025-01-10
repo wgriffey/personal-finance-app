@@ -1,12 +1,13 @@
 import { Transaction } from '@interfaces/Transaction.ts';
 import { ColumnDef } from '@tanstack/react-table';
-import DataTable from '@components/DataTable/DataTable.tsx';
+import DataTable from '@components/DataTable';
 import { useTransactions } from '@transactions/hooks/useTransactions.ts';
 import moment from 'moment';
 import { Account } from '@interfaces/Account.ts';
 import { useAccounts } from '@accounts/hooks/useAccounts.ts';
+import Spinner from '@components/Spinner';
 
-function HomeDashboardRecentTransactions() {
+function DashboardRecentTransactions() {
     const accounts = useAccounts();
     const startDate: string = moment().subtract(30, 'days').format('YYYY-MM-DD');
     const endDate: string = moment().format('YYYY-MM-DD');
@@ -56,14 +57,14 @@ function HomeDashboardRecentTransactions() {
     return (
         <div
             id='home-dashboard-recent-transactions'
-            className='mb-2 ml-2 w-[60%] flex-1 overflow-scroll rounded-sm border border-textColor-primary bg-backgroundColor-primary'
+            className='relative mb-2 ml-2 w-[60%] rounded-sm border border-textColor-primary bg-backgroundColor-primary'
         >
             <strong className='p-1 font-medium text-textColor-secondary'>
                 Recent Transactions
             </strong>
-            {transactions.isFetching || transactions.isLoading ? (
-                <h2 className={'text-textColor-primary'}>Loading...</h2>
-            ) : null}
+            {(transactions.isFetching || transactions.isLoading) && (
+                <Spinner height='h-20' width='w-20' color='border-textColor-primary' />
+            )}
             {transactions.status === 'error' ? <h2>Error Fetching Transactions</h2> : null}
             {transactions.isSuccess ? (
                 <div className='m-3 w-[90%]'>
@@ -74,4 +75,4 @@ function HomeDashboardRecentTransactions() {
     );
 }
 
-export default HomeDashboardRecentTransactions;
+export default DashboardRecentTransactions;

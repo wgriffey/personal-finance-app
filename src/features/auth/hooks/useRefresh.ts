@@ -1,20 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { User } from '@interfaces/User.ts';
 import AuthService from '@auth/services/AuthService.ts';
 import useAuth from './useAuth';
 
-export function useLogin() {
+export function useLogout() {
     const queryClient = useQueryClient();
-    const { login } = useAuth();
+    const { login, logout } = useAuth();
 
     return useMutation({
-        mutationFn: (user: Partial<User>) => AuthService.login(user),
+        mutationFn: () => AuthService.refreshUserAccessToken(),
         onSuccess: () => {
             login();
         },
         onError: (error) => {
             if (error.message.includes('401')) {
-                error.message = 'Invalid Credentials';
+                queryClient.removeQueries();
+                logout();
             }
         },
     });

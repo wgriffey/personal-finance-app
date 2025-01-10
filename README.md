@@ -22,7 +22,7 @@ Personal Finance Application Built with React Typescript, Tanstack (Tanstack Que
 ### 6. Click "Submit" with the input field empty.
 ### 7. Choose any number of accounts to link, then click "Continue"
 ### 8. Accept the terms and conditions and click "Connect accounts"
-### 9. You should be able to view the mock transactions in the "Recent Transactions" section of the Home Dashboard
+### 9. You should be able to view the mock transactions in the "Recent Transactions" section of the Dashboard
 
 <br>
 

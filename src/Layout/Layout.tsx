@@ -1,5 +1,5 @@
 import Header from './Header';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router';
 import { ThemeProp } from '@interfaces/ThemeProps';
 import Sidebar from './Sidebar';
 import { useEffect, useState } from 'react';

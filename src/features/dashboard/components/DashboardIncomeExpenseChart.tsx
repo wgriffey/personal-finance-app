@@ -10,7 +10,7 @@ import {
 } from 'recharts';
 import { IncomeExpenseChartData } from '@interfaces/IncomeExpenseChartData';
 
-function HomeDashboardIncomeExpenseChart() {
+function DashboardIncomeExpenseChart() {
     const incomeExpenseChartData: IncomeExpenseChartData[] = [
         { date: 'January 2023', Income: 8000, Expense: -3000 },
         { date: 'February 2023', Income: 10000, Expense: -5000 },
@@ -53,4 +53,4 @@ function HomeDashboardIncomeExpenseChart() {
     );
 }
 
-export default HomeDashboardIncomeExpenseChart;
+export default DashboardIncomeExpenseChart;

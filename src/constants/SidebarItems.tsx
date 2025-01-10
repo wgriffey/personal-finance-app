@@ -11,9 +11,9 @@ import {
 
 export const SIDEBAR_NAVIGATION_ITEMS: SidebarItem[] = [
     {
-        key: 'homeDashboard',
-        label: 'Home Dashboard',
-        path: '/home',
+        key: 'Dashboard',
+        label: 'Dashboard',
+        path: '/dashboard',
         icon: <FontAwesomeIcon icon={faHouse} />,
     },
     {

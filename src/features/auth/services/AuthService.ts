@@ -12,19 +12,34 @@ export default class AuthService {
         });
     }
 
+    static async googleOauthLogin(provider: string, state: string, code: string) {
+        return await fetchWithMiddleware(
+            `http://127.0.0.1:8000/auth/o/${provider}/?state=${encodeURIComponent(state)}&code=${encodeURIComponent(code)}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Accept: 'application/json',
+                },
+            },
+        );
+    }
+
     static async refreshUserAccessToken() {
         return await fetchWithMiddleware(`http://127.0.0.1:8000/auth/jwt/refresh/`, {
             method: 'POST',
         });
     }
 
-    static async signUp(body: User) {
-        return await fetchWithMiddleware(`http://127.0.0.1:8000/users/`, {
+    static async verifyUserAccessToken() {
+        return await fetchWithMiddleware(`http://127.0.0.1:8000/auth/jwt/verify/`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: body,
+        });
+    }
+
+    static async logout() {
+        return await fetchWithMiddleware(`http://127.0.0.1:8000/auth/logout/`, {
+            method: 'POST',
         });
     }
 }

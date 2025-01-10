@@ -8,7 +8,7 @@ import {
     faSackDollar,
 } from '@fortawesome/free-solid-svg-icons';
 
-function HomeDashboardStatsGrid() {
+function DashboardStatsGrid() {
     return (
         <div
             id='home-dashboard-stats-grid'
@@ -94,7 +94,7 @@ function HomeDashboardStatsGrid() {
     );
 }
 
-export default HomeDashboardStatsGrid;
+export default DashboardStatsGrid;
 
 function BoxWrapper(wrapperProps: BoxWrapperProps) {
     return (

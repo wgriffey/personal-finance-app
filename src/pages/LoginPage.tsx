@@ -1,14 +1,18 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import LoginForm from '@auth/components/LoginForm';
+import useAuth from '@auth/hooks/useAuth';
+import { useEffect } from 'react';
 
 function LoginPage() {
     const navigate = useNavigate();
+    const { authState } = useAuth();
 
-    // useEffect(() => {
-    //     if (userToken['myToken'] && userToken['myToken'] !== undefined) {
-    //         navigate('/home');
-    //     }
-    // }, [navigate, userToken]);
+    useEffect(() => {
+        if (authState.isAuthenticated) {
+            navigate('/dashboard');
+        }
+        console.log(authState);
+    }, [authState]);
 
     return (
         <div className='relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-backgroundColor-primary text-center shadow-lg backdrop-blur-sm backdrop-filter'>
