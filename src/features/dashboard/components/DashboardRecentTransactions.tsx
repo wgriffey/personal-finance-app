@@ -57,7 +57,7 @@ function DashboardRecentTransactions() {
     return (
         <div
             id='home-dashboard-recent-transactions'
-            className='relative mb-2 ml-2 w-[60%] rounded-sm border border-textColor-primary bg-backgroundColor-primary'
+            className='relative mb-2 ml-2 max-h-[100%] w-[60%] overflow-scroll rounded-sm border border-textColor-primary bg-backgroundColor-primary'
         >
             <strong className='p-1 font-medium text-textColor-secondary'>
                 Recent Transactions

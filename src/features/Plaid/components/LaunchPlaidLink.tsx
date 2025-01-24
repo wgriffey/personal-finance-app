@@ -1,5 +1,12 @@
 import { LinkProps } from '@interfaces/LinkProps.ts';
-import { PlaidLinkOnSuccessMetadata, usePlaidLink } from 'react-plaid-link';
+import {
+    PlaidLinkError,
+    PlaidLinkOnEventMetadata,
+    PlaidLinkOnExitMetadata,
+    PlaidLinkOnSuccessMetadata,
+    PlaidLinkStableEvent,
+    usePlaidLink,
+} from 'react-plaid-link';
 import { useEffect, useCallback } from 'react';
 import InvestmentService from '@investments/services/InvestmentService.ts';
 import TransactionService from '@transactions/service/TransactionService.ts';
@@ -18,44 +25,52 @@ function LaunchPlaidLink(linkProps: LinkProps) {
             if (linkProps.item !== null && linkProps.item !== undefined) {
                 deleteLinkToken(parseInt(linkProps.item));
             }
+
             // Regular Link Mode: Exchange public token for new access token, then pull account,transaction, and investment data from Plaid
-            const getAccountDataFromPlaid = () => {
-                AccountService.getAccountDataFromPlaid()
-                    .then(() => {
-                        queryClient.invalidateQueries({ queryKey: ['accounts'] });
-                    })
-                    .catch((err) => console.log(err));
-            };
-
-            const getTransactionDataFromPlaid = () => {
-                TransactionService.getTransactionDataFromPlaid()
-                    .then((res) => {
-                        queryClient.invalidateQueries({ queryKey: ['transactions'] });
-                    })
-                    .catch((err) => console.log(err));
-            };
-
-            const getInvestmentDataFromPlaid = () => {
-                InvestmentService.getInvestmentDataFromPlaid()
-                    .then((res) => {
-                        queryClient.invalidateQueries({ queryKey: ['investments'] });
-                    })
-                    .catch((err) => console.log(err));
-            };
-
             await PlaidService.setAccessToken(public_token, metadata.institution!);
 
-            getAccountDataFromPlaid();
-            getTransactionDataFromPlaid();
-            getInvestmentDataFromPlaid();
+            await AccountService.getAccountDataFromPlaid()
+                .then(() => {
+                    queryClient.invalidateQueries({ queryKey: ['accounts'] });
+                })
+                .catch((err) => console.log(err));
+
+            await TransactionService.getTransactionDataFromPlaid()
+                .then(() => {
+                    queryClient.invalidateQueries({ queryKey: ['transactions'] });
+                })
+                .catch((err) => console.log(err));
+
+            await InvestmentService.getInvestmentDataFromPlaid()
+                .then(() => {
+                    queryClient.invalidateQueries({ queryKey: ['investments'] });
+                })
+                .catch((err) => console.log(err));
 
             deleteLinkToken();
         },
         [deleteLinkToken, linkProps.item],
     );
+
+    const onExit = useCallback(
+        async (error: PlaidLinkError | null, metadata: PlaidLinkOnExitMetadata) => {
+            deleteLinkToken();
+        },
+        [deleteLinkToken],
+    );
+
+    // const onEvent = useCallback(
+    //     async (eventName: PlaidLinkStableEvent | string, metadata: PlaidLinkOnEventMetadata) => {
+    //         deleteLinkToken();
+    //     },
+    //     [],
+    // );
+
     const config: Parameters<typeof usePlaidLink>[0] = {
         token: linkProps.linkToken,
         onSuccess,
+        onExit,
+        // onEvent,
     };
     const { open, ready } = usePlaidLink(config);
 

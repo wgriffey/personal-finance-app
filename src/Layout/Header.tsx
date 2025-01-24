@@ -33,8 +33,9 @@ function Header(themeProps: ThemeProp) {
     }
 
     function onLogOut() {
-        logoutMutation.mutate();
-        navigate('/login');
+        logoutMutation.mutate(undefined, {
+            onSuccess: () => navigate('/login'),
+        });
     }
 
     return (
@@ -184,8 +185,7 @@ function Header(themeProps: ThemeProp) {
                 </div>
                 <div className='flex flex-col'>
                     <button
-                        type='button'
-                        className='mb-2 mt-2 px-6 py-3'
+                        className='primary-button mb-2 mt-2'
                         onClick={() => initiatePlaidLink()}
                     >
                         Link Account

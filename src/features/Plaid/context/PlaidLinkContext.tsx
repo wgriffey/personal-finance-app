@@ -114,8 +114,8 @@ export function PlaidLinkProvider(props: any) {
         // if itemId is not null, update mode is triggered
         const linkTokenResponse = await PlaidService.generateLinkToken(itemId);
         console.info(linkTokenResponse);
-        if (linkTokenResponse.link_token) {
-            const token = await linkTokenResponse.link_token;
+        if (linkTokenResponse.linkToken) {
+            const token = await linkTokenResponse.linkToken;
             console.log('success', linkTokenResponse);
 
             if (itemId) {
@@ -128,8 +128,8 @@ export function PlaidLinkProvider(props: any) {
                 dispatch({ type: 'LINK_TOKEN_CREATED', token: token });
             }
         } else {
-            dispatch({ type: 'LINK_TOKEN_ERROR', error: linkTokenResponse.data });
-            console.log('error', linkTokenResponse.data);
+            dispatch({ type: 'LINK_TOKEN_ERROR', error: linkTokenResponse });
+            console.log('error', linkTokenResponse);
         }
     }, []);
 

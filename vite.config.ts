@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
+import mkcert from 'vite-plugin-mkcert';
 
 function getTsConfigPaths() {
     // Read and clean the tsconfig.json file

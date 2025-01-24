@@ -8,7 +8,7 @@ export interface ActivationParams {
 
 export default class UserService {
     static async signUp(body: User) {
-        return await fetchWithMiddleware(`http://127.0.0.1:8000/users/`, {
+        await fetchWithMiddleware(`http://127.0.0.1:8000/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export default class UserService {
     }
 
     static async activation(params: ActivationParams) {
-        return await fetchWithMiddleware(`http://127.0.0.1:8000/users/activation/`, {
+        await fetchWithMiddleware(`http://127.0.0.1:8000/users/activation/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default class UserService {
         newPassword: string,
         reNewPassword: string,
     ) {
-        return await fetchWithMiddleware(`http://127.0.0.1:8000/users/reset_password_confirm/`, {
+        await fetchWithMiddleware(`http://127.0.0.1:8000/users/reset_password_confirm/`, {
             method: 'POST',
             body: { uid, token, newPassword, reNewPassword },
         });

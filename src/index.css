@@ -7,11 +7,6 @@
         @apply p-4;
     }
 
-    button[type='button'],
-    button[type='submit'] {
-        @apply h-10 w-40 rounded-full border border-textColor-primary bg-textColor-primary px-5 py-2 text-textColor-secondary hover:bg-transparent hover:text-textColor-primary;
-    }
-
     button[type='reset'] {
         @apply border-none bg-transparent text-textColor-primary hover:text-textColor-secondary;
     }
@@ -43,7 +38,11 @@
         @apply flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline;
     }
 
-    /* Hide scrollbar for Chrome, Safari and Opera */
+    div {
+        @apply transform transition-colors duration-300;
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera  */
     #home-dashboard-stats-grid::-webkit-scrollbar,
     #home-dashboard-recent-transactions::-webkit-scrollbar {
         display: none;
@@ -88,5 +87,11 @@
         box-shadow: 0 0 0px 1000px rgb(var(--color-bg-primary)) inset;
         transition: background-color 5000s ease-in-out 0s;
         color: rgb(var(--color-text-primary));
+    }
+}
+
+@layer components {
+    .primary-button {
+        @apply h-10 w-40 transform rounded-full border border-textColor-primary bg-textColor-primary px-5 py-2 text-textColor-secondary transition-colors duration-300 hover:bg-transparent hover:text-textColor-primary;
     }
 }

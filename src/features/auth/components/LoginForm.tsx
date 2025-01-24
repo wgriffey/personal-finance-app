@@ -155,9 +155,8 @@ const LoginForm = () => {
 
             <div className='space-y-2'>
                 <button
-                    type='submit'
                     disabled={registerMutation.isPending || loginMutation.isPending}
-                    className='mt-8 rounded-lg px-20 py-2 text-white transition-colors disabled:opacity-75'
+                    className='primary-button disabled:opacity-75'
                 >
                     {loginMutation.isPending || registerMutation.isPending ? (
                         <Spinner height='h-6' width='w-6' color='border-textColor-secondary' />

@@ -17,12 +17,13 @@ function Sidebar() {
         generateLinkToken();
     }
     function onLogOut() {
-        logoutMutation.mutate()
-        navigate('/login');
+        logoutMutation.mutate(undefined, {
+            onSuccess: () => navigate('/login'),
+        });
     }
 
     return (
-        <div className='relative hidden min-h-screen min-w-[15%] flex-col bg-backgroundColor-primary drop-shadow-lg md:flex'>
+        <div className='relative hidden h-screen min-w-[15%] flex-col bg-backgroundColor-primary drop-shadow-lg md:flex'>
             <div className='flex items-center justify-center gap-1 px-3 py-[26px] text-textColor-primary'>
                 <img src={money} className='h-6 w-6'></img>
                 <h1 className='text-sm font-bold md:text-lg'>Gryffen Finance</h1>
@@ -45,8 +46,7 @@ function Sidebar() {
                 ))}
                 <div className='flex flex-col'>
                     <button
-                        type='button'
-                        className='mb-2 mt-2 px-6 py-3'
+                        className='primary-button mb-2 mt-2 w-full'
                         onClick={() => initiatePlaidLink()}
                     >
                         Link Account

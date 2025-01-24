@@ -4,11 +4,13 @@ import AuthService from '@auth/services/AuthService.ts';
 import useAuth from './useAuth';
 
 export function useLogin() {
-    const queryClient = useQueryClient();
     const { login } = useAuth();
 
     return useMutation({
         mutationFn: (user: Partial<User>) => AuthService.login(user),
+        meta: {
+            callRefresh: false,
+        },
         onSuccess: () => {
             login();
         },

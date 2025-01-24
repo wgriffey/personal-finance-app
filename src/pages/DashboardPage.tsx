@@ -6,7 +6,7 @@ import DashboardTopMovingInvestments from '@dashboard/components/DashboardTopMov
 
 function DashboardPage() {
     return (
-        <div className='flex h-full w-full flex-col gap-2 bg-transparent'>
+        <div className='flex max-h-full w-full flex-col gap-2 bg-transparent'>
             <DashboardStatsGrid />
             <div className='flex h-[40%] w-full bg-transparent'>
                 <div className='w-[75.5%]'>
