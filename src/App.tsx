@@ -13,6 +13,8 @@ import ActivationPage from '@pages/ActivationPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthProvider } from '@auth/context/AuthContext';
+import PasswordResetPage from '@pages/PasswordResetPage';
+import PasswordResetConfirmPage from '@pages/PasswordResetConfirmPage';
 
 function App() {
     const [theme, setTheme] = useState<string>('light');
@@ -55,7 +57,12 @@ function App() {
                     <BrowserRouter>
                         <Routes>
                             <Route path='/login' element={<LoginPage />} />
+                            <Route path='/password-reset' element={<PasswordResetPage />} />
                             <Route path='/activation/:uid/:token' element={<ActivationPage />} />
+                            <Route
+                                path='/password-reset/:uid/:token'
+                                element={<PasswordResetConfirmPage />}
+                            />
                             <Route
                                 path='/'
                                 element={<Layout theme={theme} handleThemeSwitch={setTheme} />}

@@ -4,6 +4,7 @@ import { useLogin } from '@auth/hooks/useLogin';
 import { useRegister } from '@auth/hooks/useRegister';
 import { User } from '@interfaces/User';
 import Spinner from '@components/Spinner';
+import { useNavigate } from 'react-router';
 
 const LoginForm = () => {
     const formRef = useRef<User>({
@@ -15,12 +16,13 @@ const LoginForm = () => {
     });
     const firstInputRef = useRef<HTMLInputElement>(null);
 
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswords, setShowPasswords] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const [isLoginError, setIsLoginError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const loginMutation = useLogin();
     const registerMutation = useRegister();
+    const navigate = useNavigate();
 
     useEffect(() => {
         firstInputRef.current?.focus();
@@ -48,8 +50,8 @@ const LoginForm = () => {
         });
     }
 
-    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { id, value } = e.target;
+    function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const { id, value } = event.target;
         formRef.current[id as keyof User] = value;
         setIsLoginError(false);
     }
@@ -106,55 +108,72 @@ const LoginForm = () => {
     }
 
     return (
-        <form className='items-center justify-center space-y-4' onSubmit={handleSubmit}>
-            {!isLogin && (
-                <>
-                    <InputField
-                        id='firstName'
-                        label='First Name'
-                        ref={firstInputRef}
-                        defaultValue={formRef.current.firstName}
-                        onChange={handleInputChange}
-                    />
-                    <InputField
-                        id='lastName'
-                        label='Last Name'
-                        defaultValue={formRef.current.lastName}
-                        onChange={handleInputChange}
-                    />
-                </>
-            )}
-            <InputField
-                id='email'
-                label='Email'
-                type='email'
-                ref={isLogin ? firstInputRef : null}
-                defaultValue={formRef.current.email}
-                onChange={handleInputChange}
-            />
-            <InputField
-                id='password'
-                label='Password'
-                showPassword={showPassword}
-                onTogglePassword={() => setShowPassword(!showPassword)}
-                defaultValue={formRef.current.password}
-                onChange={handleInputChange}
-            />
-            {!isLogin && (
+        <form className='flex w-full flex-col items-center space-y-4' onSubmit={handleSubmit}>
+            <div className='w-3/4 space-y-4 px-3'>
+                {!isLogin && (
+                    <>
+                        <InputField
+                            id='firstName'
+                            label='First Name'
+                            ref={firstInputRef}
+                            defaultValue={formRef.current.firstName}
+                            onChange={handleInputChange}
+                        />
+                        <InputField
+                            id='lastName'
+                            label='Last Name'
+                            defaultValue={formRef.current.lastName}
+                            onChange={handleInputChange}
+                        />
+                    </>
+                )}
                 <InputField
-                    id='rePassword'
-                    label='Confirm Password'
-                    showPassword={showPassword}
-                    onTogglePassword={() => setShowPassword(!showPassword)}
-                    defaultValue={formRef.current.rePassword}
+                    id='email'
+                    label='Email'
+                    type='email'
+                    ref={isLogin ? firstInputRef : null}
+                    defaultValue={formRef.current.email}
                     onChange={handleInputChange}
                 />
-            )}
+                <InputField
+                    id='password'
+                    label='Password'
+                    type='password'
+                    showPassword={showPasswords}
+                    onTogglePassword={() => setShowPasswords(!showPasswords)}
+                    defaultValue={formRef.current.password}
+                    onChange={handleInputChange}
+                />
+                <div className='text-start'>
+                    {isLogin && (
+                        <button
+                            type='button'
+                            disabled={registerMutation.isPending || loginMutation.isPending}
+                            className='secondary-button'
+                            onClick={() => navigate('/password-reset')}
+                        >
+                            Forgot Password?
+                        </button>
+                    )}
+                </div>
+                {!isLogin && (
+                    <InputField
+                        id='rePassword'
+                        label='Confirm Password'
+                        type='password'
+                        showPassword={showPasswords}
+                        onTogglePassword={() => setShowPasswords(!showPasswords)}
+                        defaultValue={formRef.current.rePassword}
+                        onChange={handleInputChange}
+                    />
+                )}
+            </div>
 
             {isLoginError && <div className='text-md px-8 text-red-600'>{errorMessage}</div>}
 
             <div className='space-y-2'>
                 <button
+                    type='submit'
                     disabled={registerMutation.isPending || loginMutation.isPending}
                     className='primary-button disabled:opacity-75'
                 >
@@ -171,9 +190,9 @@ const LoginForm = () => {
                     <span className='text-textColor-secondary'>
                         {isLogin ? 'New to Gryffen Finance? ' : 'Existing User? '}
                         <button
-                            type='reset'
+                            type='button'
                             disabled={registerMutation.isPending || loginMutation.isPending}
-                            className='border-none bg-transparent text-blue-500 hover:text-blue-600 disabled:opacity-50'
+                            className='secondary-button'
                             onClick={handleToggleMode}
                         >
                             {isLogin ? 'Join Here!' : 'Log In Here!'}

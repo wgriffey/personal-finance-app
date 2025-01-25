@@ -6,6 +6,13 @@ export interface ActivationParams {
     token: string;
 }
 
+export interface PasswordResetConfirmParams {
+    uid: string;
+    token: string;
+    newPassword: string;
+    reNewPassword: string;
+}
+
 export default class UserService {
     static async signUp(body: User) {
         await fetchWithMiddleware(`http://127.0.0.1:8000/users/`, {
@@ -27,22 +34,17 @@ export default class UserService {
         });
     }
 
-    static async passwordReset(body: Partial<User>) {
+    static async passwordReset(email: string) {
         return await fetchWithMiddleware(`http://127.0.0.1:8000/users/reset_password/`, {
             method: 'POST',
-            body: body,
+            body: { email },
         });
     }
 
-    static async passwordResetConfirm(
-        uid: string,
-        token: string,
-        newPassword: string,
-        reNewPassword: string,
-    ) {
+    static async passwordResetConfirm(body: PasswordResetConfirmParams) {
         await fetchWithMiddleware(`http://127.0.0.1:8000/users/reset_password_confirm/`, {
             method: 'POST',
-            body: { uid, token, newPassword, reNewPassword },
+            body: body,
         });
     }
 }

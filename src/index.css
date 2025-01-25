@@ -7,10 +7,6 @@
         @apply p-4;
     }
 
-    button[type='reset'] {
-        @apply border-none bg-transparent text-textColor-primary hover:text-textColor-secondary;
-    }
-
     label svg {
         position: relative;
         width: 20px;
@@ -93,5 +89,8 @@
 @layer components {
     .primary-button {
         @apply h-10 w-40 transform rounded-full border border-textColor-primary bg-textColor-primary px-5 py-2 text-textColor-secondary transition-colors duration-300 hover:bg-transparent hover:text-textColor-primary;
+    }
+    .secondary-button {
+        @apply border-none bg-transparent text-textColor-primary hover:text-textColor-secondary;
     }
 }
