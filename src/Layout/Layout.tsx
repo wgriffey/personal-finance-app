@@ -26,7 +26,7 @@ function Layout(theme: ThemeProp) {
     }, [linkTokens]);
 
     return (
-        <div className='flex max-h-[100dvh] bg-backgroundColor-secondary'>
+        <div className='flex max-h-dvh bg-backgroundColor-secondary'>
             <Sidebar />
             <div className='flex min-w-full flex-col md:min-w-[85%]'>
                 <Header theme={theme.theme} handleThemeSwitch={theme.handleThemeSwitch} />

@@ -15,6 +15,8 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
     const table = useReactTable({
         data,
         columns,
+        enableColumnResizing: true,
+        columnResizeMode: 'onChange',
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -34,33 +36,49 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
                     table.getColumn('primaryCategory')?.setFilterValue(e.target.value);
                 }}
             />
-            <table className='min-w-full'>
+            <table>
                 <thead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <th key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                              header.column.columnDef.header,
-                                              header.getContext(),
-                                          )}
-                                </th>
-                            ))}
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <th
+                                        key={header.id}
+                                        style={{ position: 'relative', width: header.getSize() }}
+                                    >
+                                        {header.isPlaceholder
+                                            ? null
+                                            : flexRender(
+                                                  header.column.columnDef.header,
+                                                  header.getContext(),
+                                              )}
+                                        {header.column.getCanResize() && (
+                                            <div
+                                                onMouseDown={header.getResizeHandler()}
+                                                onTouchStart={header.getResizeHandler()}
+                                                className={`resizer ${
+                                                    header.column.getIsResizing()
+                                                        ? 'isResizing'
+                                                        : ''
+                                                }`}
+                                            ></div>
+                                        )}
+                                    </th>
+                                );
+                            })}
                         </tr>
                     ))}
                 </thead>
                 <tbody>
                     {table.getRowModel().rows?.length === 0 ? (
                         <tr>
-                            <td>No Recent Transactions</td>
+                            <td colSpan={columns.length}>No Recent Transactions</td>
                         </tr>
                     ) : (
                         table.getRowModel().rows.map((row) => (
                             <tr key={row.id}>
                                 {row.getVisibleCells().map((cell) => (
-                                    <td key={cell.id}>
+                                    <td key={cell.id} style={{ width: cell.column.getSize() }}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </td>
                                 ))}
@@ -105,22 +123,9 @@ function DataTable<TData, TValue>({ data, columns }: DataTableProps<TData, TValu
                             const page = e.target.value ? Number(e.target.value) - 1 : 0;
                             table.setPageIndex(page);
                         }}
-                        className='w-12 border-0 border-b-2 border-textColor-secondary bg-transparent px-1'
+                        className='w-16 rounded-md border border-textColor-secondary bg-transparent px-2 py-1 text-center text-textColor-secondary focus:border-textColor-primary focus:outline-none focus:ring-0'
                     />
                 </span>
-                <select
-                    value={table.getState().pagination.pageSize}
-                    onChange={(e) => {
-                        table.setPageSize(Number(e.target.value));
-                    }}
-                    className='block rounded-lg border border-textColor-secondary bg-backgroundColor-primary p-2.5 text-sm text-textColor-secondary focus:border-textColor-primary focus:ring-textColor-primary'
-                >
-                    {[10, 20, 30, 40, 50].map((pageSize) => (
-                        <option key={pageSize} value={pageSize}>
-                            Show {pageSize}
-                        </option>
-                    ))}
-                </select>
             </div>
         </>
     );

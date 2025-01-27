@@ -57,7 +57,7 @@ function DashboardRecentTransactions() {
     return (
         <div
             id='home-dashboard-recent-transactions'
-            className='relative mb-2 ml-2 max-h-[100%] w-[60%] overflow-scroll rounded-sm border border-textColor-primary bg-backgroundColor-primary'
+            className='mb-2 ml-2 block max-h-full max-w-[60%] overflow-scroll rounded-sm border border-textColor-primary bg-backgroundColor-primary p-1'
         >
             <strong className='p-1 font-medium text-textColor-secondary'>
                 Recent Transactions
@@ -67,9 +67,7 @@ function DashboardRecentTransactions() {
             )}
             {transactions.status === 'error' ? <h2>Error Fetching Transactions</h2> : null}
             {transactions.isSuccess ? (
-                <div className='m-3 w-[90%]'>
-                    <DataTable columns={recentTransactionColumns} data={transactions.data} />
-                </div>
+                <DataTable columns={recentTransactionColumns} data={transactions.data} />
             ) : null}
         </div>
     );

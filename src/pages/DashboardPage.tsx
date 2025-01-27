@@ -16,7 +16,7 @@ function DashboardPage() {
                     <DashboardTransactionCategoryChart />
                 </div>
             </div>
-            <div className='flex h-[50%] w-full'>
+            <div className='flex h-[50%] max-w-full'>
                 <DashboardRecentTransactions />
                 <DashboardTopMovingInvestments />
             </div>

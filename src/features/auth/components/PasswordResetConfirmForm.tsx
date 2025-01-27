@@ -16,6 +16,7 @@ function PasswordResetConfirmForm() {
     const navigate = useNavigate();
     const [isFormError, setIsFormError] = useState(false);
     const [formError, setFormError] = useState('');
+    const [showPasswords, setShowPasswords] = useState(false);
 
     const formRef = useRef<PasswordResetConfirmParams>({
         uid: params.uid ?? '',
@@ -57,12 +58,16 @@ function PasswordResetConfirmForm() {
                     id='newPassword'
                     type='password'
                     label='Password'
+                    showPassword={showPasswords}
+                    onTogglePassword={() => setShowPasswords(!showPasswords)}
                     onChange={handleInputChange}
                 />
                 <InputField
                     id='reNewPassword'
                     type='password'
                     label='Confirm Password'
+                    showPassword={showPasswords}
+                    onTogglePassword={() => setShowPasswords(!showPasswords)}
                     onChange={handleInputChange}
                 />
             </div>

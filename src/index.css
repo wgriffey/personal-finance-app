@@ -13,13 +13,14 @@
         z-index: 100;
     }
 
+    /* Updated table-specific styles */
     table {
-        @apply text-center text-textColor-secondary;
+        @apply w-full text-textColor-secondary;
     }
 
     th,
     td {
-        @apply border-y border-textColor-secondary px-2.5 py-3 text-left text-sm;
+        @apply cursor-default border border-textColor-secondary px-4 py-2 text-left text-sm;
     }
 
     thead {
@@ -27,7 +28,15 @@
     }
 
     th {
-        @apply font-semibold;
+        @apply font-semibold tracking-wide;
+    }
+
+    tbody tr:hover {
+        @apply bg-textColor-primary/10;
+    }
+
+    tbody tr:last-child td {
+        @apply border-b-0;
     }
 
     Link {
@@ -36,6 +45,11 @@
 
     div {
         @apply transform transition-colors duration-300;
+    }
+
+    .resizer.isResizing {
+        background: blue;
+        opacity: 1;
     }
 
     /* Hide scrollbar for Chrome, Safari and Opera  */
@@ -92,5 +106,8 @@
     }
     .secondary-button {
         @apply border-none bg-transparent text-textColor-primary hover:text-textColor-secondary;
+    }
+    .resizer {
+        @apply absolute right-0 top-0 h-full w-1 cursor-col-resize touch-none select-none bg-textColor-secondary opacity-0 hover:opacity-100;
     }
 }
