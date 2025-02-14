@@ -23,8 +23,8 @@ function RootComponent() {
     return (
         <>
             <Outlet />
-            {/* <ReactQueryDevtools buttonPosition='bottom-right' /> */}
-            {/* <TanStackRouterDevtools position='top-right' /> */}
+            {/* <ReactQueryDevtools buttonPosition='bottom-right' />
+            <TanStackRouterDevtools position='top-right' /> */}
         </>
     );
 }

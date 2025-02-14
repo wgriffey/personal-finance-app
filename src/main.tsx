@@ -8,7 +8,6 @@ import useAuth from '@auth/hooks/useAuth';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import { ThemeProvider } from './context/ThemeContext';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -46,7 +45,6 @@ function App() {
                     <PlaidLinkProvider>
                         <InnerApp />
                     </PlaidLinkProvider>
-                    <TanStackRouterDevtools position='bottom-right' />
                 </QueryClientProvider>
             </ThemeProvider>
         </AuthProvider>
