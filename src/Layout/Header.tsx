@@ -1,30 +1,26 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
-import { ThemeProp } from '@interfaces/ThemeProps';
-import { Link, useLocation, useNavigate } from 'react-router';
 import { SIDEBAR_NAVIGATION_ITEMS } from '@constants/SidebarItems';
 import { SidebarItem } from '@interfaces/SidebarNavigationItem';
 import useLink from '@plaid/hooks/useLink.ts';
 import { useLogout } from '@auth/hooks/useLogout';
+import { Link, useLocation, useNavigate, useRouter } from '@tanstack/react-router';
+import useTheme from '@hooks/useTheme';
 
-function Header(themeProps: ThemeProp) {
+function Header() {
+    const { theme, updateTheme } = useTheme();
     const [navMenuOpen, setNavMenuOpen] = useState<boolean>(false);
-    const location = useLocation();
+    const pathname = useLocation({
+        select: (location) => location.pathname,
+    });
     const navigate = useNavigate();
+    const router = useRouter();
     const { generateLinkToken } = useLink();
     const logoutMutation = useLogout();
 
     function openNavMenu() {
         setNavMenuOpen((navMenuOpen) => !navMenuOpen);
-    }
-
-    function handleThemeToggle() {
-        if (themeProps.theme === 'dark') {
-            themeProps.handleThemeSwitch('light');
-        } else {
-            themeProps.handleThemeSwitch('dark');
-        }
     }
 
     function initiatePlaidLink() {
@@ -34,7 +30,11 @@ function Header(themeProps: ThemeProp) {
 
     function onLogOut() {
         logoutMutation.mutate(undefined, {
-            onSuccess: () => navigate('/login'),
+            onSuccess: () => {
+                router.invalidate().finally(() => {
+                    navigate({ to: '/login' });
+                });
+            },
         });
     }
 
@@ -42,7 +42,7 @@ function Header(themeProps: ThemeProp) {
         <nav className='relative z-[1000] h-[88px] border-none bg-textColor-primary drop-shadow-lg'>
             <div className='flex h-full w-full items-center justify-between px-2'>
                 <div className='hidden font-bold text-textColor-secondary md:flex'>
-                    {location.pathname.replace(/\/|-/g, ' ').toUpperCase()}
+                    {pathname.replace(/\/|-/g, ' ').toUpperCase()}
                 </div>
                 <div className='md:hidden' onClick={openNavMenu}>
                     {!navMenuOpen ? (
@@ -62,8 +62,8 @@ function Header(themeProps: ThemeProp) {
                         type='checkbox'
                         id='darkMode-toggle'
                         className='peer/toggle hidden h-0 w-0'
-                        checked={themeProps.theme === 'dark'}
-                        onChange={handleThemeToggle}
+                        checked={theme === 'dark'}
+                        onChange={updateTheme}
                     />
                     <label
                         htmlFor='darkMode-toggle'
@@ -166,7 +166,7 @@ function Header(themeProps: ThemeProp) {
                             to={item.path}
                             onClick={openNavMenu}
                             className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
-                                location.pathname === item.path
+                                pathname === item.path
                                     ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'
                                     : ''
                             }`}

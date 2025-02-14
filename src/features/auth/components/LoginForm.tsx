@@ -4,7 +4,7 @@ import { useLogin } from '@auth/hooks/useLogin';
 import { useRegister } from '@auth/hooks/useRegister';
 import { User } from '@interfaces/User';
 import Spinner from '@components/Spinner';
-import { useNavigate } from 'react-router';
+import { useNavigate, useRouter, useSearch } from '@tanstack/react-router';
 
 const LoginForm = () => {
     const formRef = useRef<User>({
@@ -22,6 +22,8 @@ const LoginForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const loginMutation = useLogin();
     const registerMutation = useRegister();
+    const search = useSearch({ strict: false });
+    const router = useRouter();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,6 +34,12 @@ const LoginForm = () => {
         loginMutation.mutate(
             { email: formData.email, password: formData.password },
             {
+                onSuccess: () => {
+                    router.invalidate();
+                    navigate({ to: search.redirect || '/dashboard' }).catch(() => {
+                        console.log('redirecting to:');
+                    });
+                },
                 onError: (error) => {
                     setIsLoginError(true);
                     setErrorMessage(error.message);
@@ -150,7 +158,7 @@ const LoginForm = () => {
                             type='button'
                             disabled={registerMutation.isPending || loginMutation.isPending}
                             className='secondary-button'
-                            onClick={() => navigate('/password-reset')}
+                            onClick={() => navigate({ to: '/password-reset' })}
                         >
                             Forgot Password?
                         </button>

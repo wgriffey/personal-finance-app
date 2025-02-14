@@ -8,9 +8,6 @@ export function useLogin() {
 
     return useMutation({
         mutationFn: (user: Partial<User>) => AuthService.login(user),
-        meta: {
-            callRefresh: false,
-        },
         onSuccess: () => {
             login();
         },

@@ -2,16 +2,11 @@ import { usePasswordResetConfirm } from '@auth/hooks/usePasswordResetConfirm';
 import Spinner from '@components/Spinner';
 import { PasswordResetConfirmParams } from '@user/service/UserService';
 import React, { useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router';
 import InputField from './InputField';
-
-type PasswordResetConfirmURLParams = {
-    uid: string;
-    token: string;
-};
+import { useNavigate, useParams } from '@tanstack/react-router';
 
 function PasswordResetConfirmForm() {
-    const params = useParams<PasswordResetConfirmURLParams>();
+    const params = useParams({strict: false});
     const passwordResetConfirmMutation = usePasswordResetConfirm();
     const navigate = useNavigate();
     const [isFormError, setIsFormError] = useState(false);
@@ -34,7 +29,7 @@ function PasswordResetConfirmForm() {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (!formRef.current.uid || !formRef.current.token) {
-            navigate('/login');
+            navigate({ to: '/login' });
         } else if (!formRef.current.newPassword || !formRef.current.reNewPassword) {
             setIsFormError(true);
             setFormError('Please fill in all fields');
@@ -43,7 +38,7 @@ function PasswordResetConfirmForm() {
             setFormError('Passwords do not match');
         } else {
             passwordResetConfirmMutation.mutate(formRef.current, {
-                onSuccess: () => navigate('/login'),
+                onSuccess: () => navigate({ to: '/login' }),
                 onError: (error) => {
                     setIsFormError(true);
                     setFormError(error.message);

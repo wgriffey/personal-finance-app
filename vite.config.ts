@@ -2,7 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import fs from 'fs';
-import mkcert from 'vite-plugin-mkcert';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+
 
 function getTsConfigPaths() {
     // Read and clean the tsconfig.json file
@@ -27,7 +28,9 @@ function getTsConfigPaths() {
 }
 
 export default defineConfig({
-    plugins: [react()],
+    plugins: [react(),
+        TanStackRouterVite({})
+    ],
     resolve: {
         alias: getTsConfigPaths(),
     },

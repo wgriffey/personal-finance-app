@@ -11,6 +11,6 @@ export function useLogout() {
         onSettled: () => {
             queryClient.removeQueries();
             logout();
-        },
+        }
     });
 }

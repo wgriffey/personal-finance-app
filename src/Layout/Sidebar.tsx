@@ -1,24 +1,32 @@
 import money from '@assets/images/money.png';
 import { SIDEBAR_NAVIGATION_ITEMS, SIDEBAR_BOTTOM_ITEMS } from '@constants/SidebarItems';
 import { SidebarItem } from '@interfaces/SidebarNavigationItem';
-import { Link, useLocation, useNavigate } from 'react-router';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useLink from '@plaid/hooks/useLink.ts';
 import { useLogout } from '@auth/hooks/useLogout';
+import { Link, useLocation, useNavigate, useRouter } from '@tanstack/react-router';
 
 function Sidebar() {
-    const location = useLocation();
+    const pathname = useLocation({
+        select: (location) => location.pathname,
+    });
     const navigate = useNavigate();
+    const router = useRouter();
     const { generateLinkToken } = useLink();
     const logoutMutation = useLogout();
 
     function initiatePlaidLink() {
         generateLinkToken();
     }
+
     function onLogOut() {
         logoutMutation.mutate(undefined, {
-            onSuccess: () => navigate('/login'),
+            onSuccess: () => {
+                router.invalidate().finally(() => {
+                    navigate({ to: '/login' });
+                });
+            },
         });
     }
 
@@ -35,7 +43,7 @@ function Sidebar() {
                         key={item.key}
                         to={item.path}
                         className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
-                            location.pathname === item.path
+                            pathname === item.path
                                 ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'
                                 : ''
                         }`}
@@ -60,7 +68,7 @@ function Sidebar() {
                         key={item.key}
                         to={item.path}
                         className={`flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline ${
-                            location.pathname === item.path
+                            pathname === item.path
                                 ? 'bg-textColor-primary bg-opacity-50 text-textColor-secondary'
                                 : ''
                         }`}

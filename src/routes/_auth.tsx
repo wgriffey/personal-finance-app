@@ -1,24 +1,27 @@
-import Header from './Header';
-import { Outlet, useNavigate } from 'react-router';
-import { ThemeProp } from '@interfaces/ThemeProps';
-import Sidebar from './Sidebar';
+import Header from '@layout/Header';
+import Sidebar from '@layout/Sidebar';
+import LaunchPlaidLink from '@plaid/components/LaunchPlaidLink';
+import useLink from '@plaid/hooks/useLink';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
-import LaunchPlaidLink from '@plaid/components/LaunchPlaidLink.tsx';
-import useLink from '@plaid/hooks/useLink.ts';
-import useAuth from '@auth/hooks/useAuth';
 
-function Layout(theme: ThemeProp) {
+export const Route = createFileRoute('/_auth')({
+    beforeLoad: ({ context, location }) => {
+        if (!context.auth.authState.isAuthenticated) {
+            throw redirect({
+                to: '/login',
+                search: {
+                    redirect: location.href,
+                },
+            });
+        }
+    },
+    component: AuthLayout,
+});
+
+function AuthLayout() {
     const [linkToken, setLinkToken] = useState('');
     const { linkTokens } = useLink();
-    const navigate = useNavigate();
-    const { authState } = useAuth();
-
-    // Redirect to log in if not authenticated
-    // useEffect(() => {
-    //     if (authState.isAuthenticated) {
-    //         navigate('/login');
-    //     }
-    // }, []);
 
     useEffect(() => {
         setLinkToken(linkTokens.byUser['user']);
@@ -29,7 +32,7 @@ function Layout(theme: ThemeProp) {
         <div className='flex max-h-dvh bg-backgroundColor-secondary'>
             <Sidebar />
             <div className='flex min-w-full flex-col md:min-w-[85%]'>
-                <Header theme={theme.theme} handleThemeSwitch={theme.handleThemeSwitch} />
+                <Header />
                 <div className='flex h-full w-full flex-col overflow-auto'>
                     <Outlet />
                 </div>
@@ -40,5 +43,3 @@ function Layout(theme: ThemeProp) {
         </div>
     );
 }
-
-export default Layout;

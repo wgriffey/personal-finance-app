@@ -1,4 +1,6 @@
-import { createContext, Dispatch, ReactNode, useMemo, useReducer } from 'react';
+import AuthService from '@auth/services/AuthService';
+import { createContext, Dispatch, ReactNode, useEffect, useMemo, useReducer } from 'react';
+import { flushSync } from 'react-dom';
 
 interface AuthState {
     isAuthenticated: boolean;
@@ -10,21 +12,14 @@ const initialState: AuthState = {
 
 type AuthAction = { type: 'LOG_IN' } | { type: 'LOG_OUT' };
 
-interface AuthContextShape {
+export interface AuthContextShape {
     login: () => void;
     logout: () => void;
     authState: AuthState;
     dispatch: Dispatch<AuthAction>;
 }
 
-const defaultContextValue: AuthContextShape = {
-    login: () => {},
-    logout: () => {},
-    authState: initialState,
-    dispatch: () => {},
-};
-
-const AuthContext = createContext<AuthContextShape>(defaultContextValue);
+const AuthContext = createContext<AuthContextShape | null>(null);
 
 function reducer(state: AuthState, action: AuthAction): AuthState {
     switch (action.type) {
@@ -44,8 +39,25 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps) {
     const [authState, dispatch] = useReducer(reducer, initialState);
 
-    const login = () => dispatch({ type: 'LOG_IN' });
-    const logout = () => dispatch({ type: 'LOG_OUT' });
+    const login = () => {
+        flushSync(() => dispatch({ type: 'LOG_IN' }));
+    };
+    const logout = () => {
+        flushSync(() => dispatch({ type: 'LOG_OUT' }));
+    };
+
+    useEffect(() => {
+        async function isUserAuthenticated() {
+            const verifyResponse = await AuthService.verifyUserAccessToken();
+
+            if (verifyResponse.status === 200) {
+                login();
+            } else {
+                logout();
+            }
+        }
+        isUserAuthenticated();
+    }, []);
 
     const value: AuthContextShape = useMemo(
         () => ({
@@ -54,7 +66,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             authState,
             dispatch,
         }),
-        [authState],
+        [authState, login, logout, dispatch],
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
