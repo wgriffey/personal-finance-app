@@ -1,7 +1,7 @@
 import AuthService from '@auth/services/AuthService';
 import { toCamelCase, toSnakeCase } from './toCamelAndSnakeCase';
 
-interface Response {
+export interface Response {
     data: any;
     status: number;
 }
@@ -68,10 +68,6 @@ async function handleTokenRefresh(url: string, options: FetchOptions): Promise<b
         return refreshSuccess;
     } catch (error) {
         await processQueue(false);
-        if (error instanceof Error && error.message.includes('401')) {
-            AuthService.logout();
-            // window.location.href = '/login';
-        }
         throw error;
     } finally {
         isRefreshing = false;

@@ -16,6 +16,7 @@ export interface AuthContextShape {
     login: () => void;
     logout: () => void;
     authState: AuthState;
+    authCheckPromise: Promise<void> | null;
     dispatch: Dispatch<AuthAction>;
 }
 
@@ -36,10 +37,15 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
+// Add a Promise that resolves when initial auth check is done
+let authCheckPromise: Promise<void> | null = null;
+
 export function AuthProvider({ children }: AuthProviderProps) {
     const [authState, dispatch] = useReducer(reducer, initialState);
 
     const login = () => {
+        console.log('LOGIN CASE IN CONTEXT');
+
         flushSync(() => dispatch({ type: 'LOG_IN' }));
     };
     const logout = () => {
@@ -56,7 +62,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 logout();
             }
         }
-        isUserAuthenticated();
+        authCheckPromise = isUserAuthenticated();
+        console.log(`AuthContext init: ${authState.isAuthenticated}`);
     }, []);
 
     const value: AuthContextShape = useMemo(
@@ -64,9 +71,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
             login,
             logout,
             authState,
+            authCheckPromise,
             dispatch,
         }),
-        [authState, login, logout, dispatch],
+        [authState, login, logout, authCheckPromise, dispatch],
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -6,7 +6,8 @@ export const Route = createFileRoute('/login')({
     validateSearch: z.object({
         redirect: z.string().optional().catch('dashboard'),
     }),
-    beforeLoad: ({ context, search }) => {
+    beforeLoad: async ({ context, search }) => {
+        console.log(`Login beforeLoad: ${context.auth.authState.isAuthenticated}`);
         if (context.auth.authState.isAuthenticated) {
             throw redirect({ to: search.redirect || '/dashboard' });
         }

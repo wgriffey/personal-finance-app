@@ -39,6 +39,7 @@ export default class AuthService {
     static async verifyUserAccessToken() {
         return await fetchWithMiddleware(`http://127.0.0.1:8000/auth/jwt/verify/`, {
             method: 'POST',
+            retry: true,
         });
     }
 

@@ -34,6 +34,11 @@ const router = createRouter({
 
 function InnerApp() {
     const auth = useAuth();
+
+    if (!auth.authCheckPromise) {
+        return;
+    }
+
     return <RouterProvider router={router} context={{ auth: auth }} />;
 }
 
