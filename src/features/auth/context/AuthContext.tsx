@@ -4,10 +4,12 @@ import { flushSync } from 'react-dom';
 
 interface AuthState {
     isAuthenticated: boolean;
+    isLoading: boolean;
 }
 
 const initialState: AuthState = {
     isAuthenticated: false,
+    isLoading: true,
 };
 
 type AuthAction = { type: 'LOG_IN' } | { type: 'LOG_OUT' };
@@ -16,7 +18,6 @@ export interface AuthContextShape {
     login: () => void;
     logout: () => void;
     authState: AuthState;
-    authCheckPromise: Promise<void> | null;
     dispatch: Dispatch<AuthAction>;
 }
 
@@ -25,9 +26,9 @@ const AuthContext = createContext<AuthContextShape | null>(null);
 function reducer(state: AuthState, action: AuthAction): AuthState {
     switch (action.type) {
         case 'LOG_IN':
-            return { ...state, isAuthenticated: true };
+            return { ...state, isAuthenticated: true, isLoading: false };
         case 'LOG_OUT':
-            return { ...state, isAuthenticated: false };
+            return { ...state, isAuthenticated: false, isLoading: false };
         default:
             return state;
     }
@@ -43,14 +44,12 @@ let authCheckPromise: Promise<void> | null = null;
 export function AuthProvider({ children }: AuthProviderProps) {
     const [authState, dispatch] = useReducer(reducer, initialState);
 
-    const login = () => {
-        console.log('LOGIN CASE IN CONTEXT');
-
+    function login() {
         flushSync(() => dispatch({ type: 'LOG_IN' }));
-    };
-    const logout = () => {
+    }
+    function logout() {
         flushSync(() => dispatch({ type: 'LOG_OUT' }));
-    };
+    }
 
     useEffect(() => {
         async function isUserAuthenticated() {
@@ -62,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 logout();
             }
         }
-        authCheckPromise = isUserAuthenticated();
+        isUserAuthenticated();
         console.log(`AuthContext init: ${authState.isAuthenticated}`);
     }, []);
 
@@ -74,7 +73,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             authCheckPromise,
             dispatch,
         }),
-        [authState, login, logout, authCheckPromise, dispatch],
+        [authState, login, logout, dispatch],
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

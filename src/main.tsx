@@ -35,7 +35,7 @@ const router = createRouter({
 function InnerApp() {
     const auth = useAuth();
 
-    if (!auth.authCheckPromise) {
+    if (auth.authState.isLoading) {
         return;
     }
 
