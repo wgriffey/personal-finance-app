@@ -1,7 +1,7 @@
 import AuthService from '@auth/services/AuthService';
 import { toCamelCase, toSnakeCase } from './toCamelAndSnakeCase';
 
-export interface Response {
+export interface FetchResponse {
     data: any;
     status: number;
 }
@@ -14,7 +14,7 @@ interface FetchOptions extends Omit<RequestInit, 'body'> {
 interface QueuedRequest {
     url: string;
     options: FetchOptions;
-    resolve: (value: Response | PromiseLike<Response>) => void;
+    resolve: (value: FetchResponse | PromiseLike<FetchResponse>) => void;
     reject: (reason?: any) => void;
 }
 
@@ -77,7 +77,7 @@ async function handleTokenRefresh(url: string, options: FetchOptions): Promise<b
 export async function fetchWithMiddleware(
     url: string,
     options: FetchOptions = {},
-): Promise<Response> {
+): Promise<FetchResponse> {
     const { body, headers, retry = true, ...restOptions } = options;
 
     const transformedBody = body ? toSnakeCase(body) : undefined;

@@ -1,6 +1,7 @@
 import AuthService from '@auth/services/AuthService';
 import { createContext, Dispatch, ReactNode, useEffect, useMemo, useReducer } from 'react';
 import { flushSync } from 'react-dom';
+import { type FetchResponse } from '@utils/fetchMiddleware';
 
 interface AuthState {
     isAuthenticated: boolean;
@@ -53,16 +54,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         async function isUserAuthenticated() {
-            const verifyResponse = await AuthService.verifyUserAccessToken();
+            const verifyResponse = await AuthService.verifyUserAccessToken().catch(
+                (error: Error) => {
+                    if (error.message.includes('Token refresh failed')) {
+                        return { data: null, status: 401 } satisfies FetchResponse;
+                    }
+                },
+            );
 
-            if (verifyResponse.status === 200) {
+            if (verifyResponse?.status === 200) {
                 login();
             } else {
                 logout();
             }
         }
         isUserAuthenticated();
-        console.log(`AuthContext init: ${authState.isAuthenticated}`);
+        console.log(`AuthContext init: ${authState.isLoading}`);
     }, []);
 
     const value: AuthContextShape = useMemo(
