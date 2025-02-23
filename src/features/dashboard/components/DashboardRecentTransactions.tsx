@@ -16,10 +16,10 @@ function DashboardRecentTransactions() {
             header: 'Account',
             accessorKey: 'account',
             cell: ({ row }) => {
-                const account: Account = accounts.data.find(
+                const account: Account = accounts?.data?.find(
                     (acc: Account) => acc.id === row.getValue('account'),
                 );
-                return account.name;
+                return account?.name ?? '';
             },
         },
         {

@@ -31,7 +31,7 @@ function AuthLayout() {
     }, [linkTokens]);
 
     return (
-        <div className='flex max-h-dvh bg-backgroundColor-secondary'>
+        <div className='flex max-h-dvh transform bg-backgroundColor-secondary transition-colors duration-300'>
             <Sidebar />
             <div className='flex min-w-full flex-col md:min-w-[85%]'>
                 <Header />

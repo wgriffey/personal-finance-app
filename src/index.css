@@ -43,10 +43,6 @@
         @apply flex items-center gap-2 px-3 py-2 text-base font-light text-textColor-secondary hover:bg-textColor-primary hover:no-underline;
     }
 
-    div {
-        @apply transform transition-colors duration-300;
-    }
-
     .resizer.isResizing {
         background: blue;
         opacity: 1;

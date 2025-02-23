@@ -2,12 +2,14 @@ import { usePasswordReset } from '@auth/hooks/usePasswordReset';
 import Spinner from '@components/Spinner';
 import InputField from './InputField';
 import { useRef, useState } from 'react';
+import { useNavigate } from '@tanstack/react-router';
 
 function PasswordResetRequestForm() {
     const passwordResetMutation = usePasswordReset();
     const [email, setEmail] = useState<string>('');
     const [isFormError, setIsFormError] = useState(false);
     const [formError, setFormError] = useState('');
+    const navigate = useNavigate();
 
     function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
         setEmail(e.target.value);
@@ -19,7 +21,9 @@ function PasswordResetRequestForm() {
             setIsFormError(true);
             setFormError('Please input your email address');
         }
-        passwordResetMutation.mutate(email);
+        passwordResetMutation.mutate(email, {
+            onSuccess: () => navigate({ to: '/login' }),
+        });
     }
 
     return (
